@@ -1,0 +1,82 @@
+<div class="scrollable modal col-lg-8 center-block" ui-if='modalVista' ui-state='modalVista'>
+  <div class="modal-backdrop in"></div>
+  <div class="scrollable-content modal-dialog">
+    <div class="modal-content">
+      <div class="container col-xs-12" style="margin-bottom: 3%;">
+        <div class="modal-header">
+          <button class="close" ui-turn-off="modalVista" ng-click="reset()">&times;</button>
+          <label>Orden de Trabajo {{modalSolicitud.id_orden_trabajo}}</label>
+        </div>
+
+        <center>
+          <div>
+            <label class="label-warning col-md-12">Cliente</label>
+            {{modalCliente}}
+          </div>
+        </center>
+
+        <span class="col-md-1"></span>
+
+        <div class="col-md-5" style="margin-top: 1%;">
+          <div>
+            <label class="label-warning col-md-12">Fecha Creación:</label>
+            {{modalFecha | date:'dd/MM/yyyy - hh:mm'}}
+          </div>
+        </div>
+        <div class="col-md-5" style="margin-top: 1%;">
+          <div>
+            <label class="label-warning col-md-12">Fecha de Planificación:</label>
+            {{modalFechaPlanificacion | date:'dd/MM/yyyy - hh:mm'}}
+          </div>
+        </div>
+      </div>
+      <input type="hidden" ng-model="cont">
+      <div class="col-xs-12" style="margin-top: 2%;">
+      <center><h4><b>Detalle Solicitud</b><h4></center>
+         <span class="col-md-2" style="float: right; margin-bottom: 2%;margin-right: 5%;"><button ng-disabled="habilita" ng-click="setarValorModalTodos(modalSolicitud, listaLotesModal)" class="btn btn-success col-md-12" ui-turn-on="modalAceptarTodos" uib-popover="Enviar Items" popover-trigger="mouseenter">Enviar Items</button></span>
+      </div>
+
+        <div class="container col-xs-12" style="margin-bottom: 1%;">
+          <div class="table-condensed col-xs-12 col-md-12">
+            <table class="table table-bordered">
+              <thead  style="background: #ffcc33;">
+                <th class="col-md-1">Materia Prima</th>
+                <th class="col-md-1">Proveedor</th>
+                <th class="col-md-1">País</th>
+                <th class="col-md-1">Bodega</th>
+                <th class="col-md-1">Contenedor</th>
+                <th class="col-md-1">Lote</th>
+                <th class="col-md-1">N° Sacos</th>
+                <th class="col-md-1">Kilos</th>
+                <th class="col-md-1">Tipo Muestreo</th>
+                <th class="col-md-1">Selección</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in listaLotesModal" ng-if="item.inspectorEnvia == true && item.certificado == undefined">
+                  <td>{{item.materiaPrima.nombreMateriaPrima}}</td>
+                  <td>{{item.trader.nombreTrader}}</td>
+                  <td>{{item.paisTrader.nombrePais}}</td>
+                  <td>{{item.bodega.nombreBodega}}</td>
+                  <td>{{item.contenedor}}</td>
+                  <td>{{item.lote}}</td>
+                  <td>{{item.bultos}}</td>
+                  <td>{{item.cantidad}}</td>
+                  <td>{{item.tipoMuestreo.descripcion}}</td>
+                  <td><input class="form-control" type="checkbox" ng-init="item.envia = false" ng-model="item.envia" ng-click="habilitarBotonEnviar(item)"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div id="pdfVer" ng-show="false">
+          <embed ng-src="{{content}}" style="width:100%;height:100%;"></embed>
+        </div>
+
+        <div class="modal-footer">
+
+        </div>
+
+      </div>
+    </div>
+  </div>

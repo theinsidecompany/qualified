@@ -1,0 +1,33 @@
+<div class="scrollable">
+  <div class="scrollable-content section text-center">
+    <div class="list-group-item list-group-item-home">
+      <h1>Dashboard Qualified
+      </h1>
+    </div>
+
+    <div class="list-group-item list-group-item-home">
+      <div>
+        <h3 class="home-heading">Solicitudes</h3>
+        Respecto a la Gestión de Solicitudes
+      </div>
+      <div ng-controller="chart1">
+        <highchart class="chart" config="chartConfig"></highchart>
+      </div>
+    </div>
+
+    <div class="list-group-item list-group-item-home">
+      <h3 class="home-heading">Stock</h3>
+      Respecto al Stock de Materias Primas
+    </div>
+      <div ng-controller="chart2">
+        <highchart class="chart" config="chartConfig" ></highchart>
+      </div>
+      <div>
+    </div>
+
+    <div ui-content-for="modals">
+      <div ng-include="'modalAvisos/mensajeAvisos.html'"></div>
+    </div>
+
+  </div>
+</div>
