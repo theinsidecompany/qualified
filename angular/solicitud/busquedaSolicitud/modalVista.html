@@ -122,7 +122,7 @@
                   <td>{{item.contenedor}}</td>
                   <td>{{item.bultos}}</td>
                   <td>{{item.cantidad}}</td>
-                  <td>{{item.tipoMuestreo.tipoMuestreo}}</td>
+                  <td>{{item.tipoMuestreo.descripcion}}</td>
                   <td ng-if="item.observaciones == true"><center><button class="btn btn-danger"  ui-turn-on="modalObservacion" ng-click="enviarObservacionModal(solicitud, item.id_lote)" uib-popover="Observacion" popover-trigger="mouseenter"><i class="fa fa-comment"></i></button></center></td>
                   <td ng-if="item.observaciones == undefined"><center><button class="btn btn-warning"  ui-turn-on="modalObservacion" ng-click="enviarObservacionModal(solicitud, item.id_lote)" uib-popover="Observacion" popover-trigger="mouseenter"><i class="fa fa-comment"></i></button></center></td>
                   <td ng-if="habilitado == 1 || habilitado == 2">
