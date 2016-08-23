@@ -1277,10 +1277,7 @@ app.controller('inspectorController', ['$scope', '$http' , '$rootScope', '$notif
 
       $http.get('/api/solicitudUnica/' + id_solicitud).success(function(respuesta){
 
-        console.log(respuesta[0].lote);
-
         var lotes = respuesta[0].lote;
-        console.log(lotes);
         var listaEnvia = [];
         var listaNoEnvia = [];
 
