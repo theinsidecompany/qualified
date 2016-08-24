@@ -124,18 +124,18 @@ app.controller('crearSolicitudController', function ($scope, $notify, $http, $ro
   //----------------------------------------------------------------------------------------------------------------------------------------------//
   //Este metodo Elimina un indice en el arreglo de lotes el cual se guardara con la soliciud.
   //-----------------------------------------------------------------------------------------------------------------//
-  $scope.removerLote = function (id){
-    var listaLote = $rootScope.listaLote;
-    for (var i = 0; i < listaLote.length; i++) {
-      if (listaLote[i].id_lote === id) {
-        listaLote.splice(i,1);
-      }
-    }
-    $rootScope.listaLote = listaLote;
-    $notify.setTime(4).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
-    $notify.setPosition('bottom-left');
-    $notify.error('Notificacion', 'Item Removido');
-  };
+  // $scope.removerLote = function (id){
+  //   var listaLote = $rootScope.listaLote;
+  //   for (var i = 0; i < listaLote.length; i++) {
+  //     if (listaLote[i].id_lote === id) {
+  //       listaLote.splice(i,1);
+  //     }
+  //   }
+  //   $rootScope.listaLote = listaLote;
+  //   $notify.setTime(4).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+  //   $notify.setPosition('bottom-left');
+  //   $notify.error('Notificacion', 'Item Removido');
+  // };
   //-----------------------------------------------------------------------------------------------------------------//
 
   //----------------------------------------------------------------------------------------------------------------------------------------------//
@@ -292,7 +292,9 @@ app.controller('crearSolicitudController', function ($scope, $notify, $http, $ro
     }
 
     $rootScope.listaLotes = nuevaLista;
-
+    $notify.setTime(4).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+    $notify.setPosition('bottom-left');
+    $notify.error('Notificacion', 'Item Removido');
   }
 
 });

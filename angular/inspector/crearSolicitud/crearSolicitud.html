@@ -40,20 +40,18 @@
           </div>
         </div>
 
-
         <div class="col-md-12" style="margin-bottom: 2%;">
           <div class="col-md-4">
             <label>Cliente</label>
           </div>
           <div>
             <div class="col-md-8">
-              <select class="col-md-12 form-control" ng-change="cambioCliente(clienteSeleccion)" ng-model="clienteSeleccion" ng-options="opt as opt.nombre for opt in listarUsuarios">
+              <select class="col-md-12 form-control" ng-disabled="habilitarSelector" ng-change="cambioCliente(clienteSeleccion)" ng-model="clienteSeleccion" ng-options="opt as opt.nombre for opt in listarUsuarios">
                 <option value="" selected disabled style="display: none;">Seleccione Solicitante</option>
               </select>
             </div>
           </div>
         </div>
-
 
         <div class="col-md-12" style="margin-bottom: 2%;">
           <div class="col-md-4">
@@ -61,7 +59,7 @@
           </div>
           <div>
             <div class="col-md-8">
-              <select class="col-md-12 form-control" ng-model="tipoSeleccion" ng-options="opt as opt.descripcion for opt in listaMuestreo" ng-change="habilitarBotonMuestreo(tipoSeleccion)">
+              <select class="col-md-12 form-control" ng-disabled="habilitarSelector" ng-model="tipoSeleccion" ng-options="opt as opt.descripcion for opt in listaMuestreo" ng-change="habilitarBotonMuestreo(tipoSeleccion)">
                 <option value="" selected disabled style="display: none;">Seleccione Muestreo</option>
               </select>
             </div>
@@ -80,7 +78,7 @@
           </div>
 
           <div ng-show="habilitaEnvio" class="col-md-4" >
-            <button class="btn btn-primary col-xs-12 col-md-12" ng-click="agregarSolicitud(fecha_muestreo)">Enviar Solicitud</button>
+            <button class="btn btn-primary col-xs-12 col-md-12" ng-click="agregarSolicitud(fecha_muestreo, listaLotes, clienteSeleccion, tipoSeleccion)">Enviar Solicitud</button>
           </div>
         </div>
 
@@ -90,7 +88,7 @@
     <center><h3><b>Detalle Solicitud</b><h3></center>
 
       <div class="table-condensed col-xs-12 col-md-12">
-        <table class="table table-bordered">
+        <table class="table table-bordered" >
           <thead style="background: #ffcc33;">
             <th>Id</th>
             <th>Materia Prima</th>
@@ -114,7 +112,7 @@
               <td>{{item.cantidad}}</td>
               <td>{{item.contenedor}}</td>
               <td>{{item.bodega.nombreBodega}}</td>
-              <td><i class="fa fa-remove" ng-click="removerLote(item.id_lote)"></i></td>
+              <td><i class="fa fa-remove" ng-click="removerLote(item.id_lote, listaLotes)"></i></td>
             </tr>
           </tbody>
         </table>

@@ -83,6 +83,8 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
     }
   }
 
+  // Metodo Modal Harina
+  // --------------------------------------------------------------------------------------
   $scope.cargarModalHarina = function(){
 
     $scope.retiro = "muestreo";
@@ -109,6 +111,253 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
     });
 
   }
+
+  $scope.listaLotes = [];
+  $scope.habilitarSelector = false;
+
+  //Este metodo crea un arreglo de lotes el cual se guardara con la soliciud.
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+  $scope.agregarLote = function (materiaPrima, trader, pais, lote, bultos, cantidad, contenedor, bodega, traders, retiro, modalProcedencia, lista){
+
+    var id_lote;
+    var listaLotes;
+
+    if (lista.length === 0) {
+      listaNueva = [];
+      id_lote = 1;
+    }else{
+      listaNueva = lista;
+      for (var i = 0; i < listaNueva.length; i++) {
+        id_lote = parseInt(listaNueva[i].id_lote) + 1;
+      }
+    }
+
+    if (traders !== undefined) {
+        var traders = {'id_trader': traders.id_usuario, 'nombre': traders.nombre};
+    }else {
+      var traders = '';
+    }
+
+    var nuevo = {'id_lote': id_lote, 'materiaPrima': materiaPrima, 'trader': trader, 'paisTrader': pais, 'lote': lote , 'bultos': bultos , 'cantidad': cantidad , 'contenedor': contenedor, 'bodega': bodega,
+     'estadoLab': 'vacio', 'traders': traders, 'retiro': retiro, 'procedencia': modalProcedencia, tipoMuestreo: {'id_tipoMuestreo': 1, 'descripcion': "Harina"}};
+
+    listaNueva.push(nuevo);
+
+    $scope.listaLotes = listaNueva;
+    $scope.habilitarSelector = true;
+
+    $rootScope.limpiarCamposModal();
+
+  };
+
+
+  $scope.agregarMuestreo = function(codigo, retiro, tipoMuestra, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis){
+    var id_item;
+    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+      var listaItems = [];
+      id_item = 1;
+    }else{
+     var listaItems = $scope.listaItems;
+     var index = listaItems.length -1;
+     id_item = listaItems[index].id_item + 1;
+    }
+
+    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
+    listaItems.push(nuevo);
+    $scope.listaItems = listaItems;
+    $scope.codigo = '';
+    $scope.retiro = '';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    for (var i = 0; i < listaTipoAnalisis.length; i++) {
+      listaTipoAnalisis[i].selAnalisis = false;
+    }
+    $scope.listaTipoAnalisis = listaTipoAnalisis;
+  }
+
+  $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
+    var id_item;
+    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+      var listaItems = [];
+      id_item = 1;
+    }else{
+     var listaItems = $scope.listaItems;
+     var index = listaItems.length - 1;
+     id_item = listaItems[index].id_item + 1;
+    }
+
+    var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
+    listaItems.push(nuevo);
+    $scope.listaItems = listaItems;
+    $scope.codigo = '';
+    $scope.retiro = '';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    $scope.materiaPrima = '';
+    $scope.trader = '';
+    $scope.temperatura = '';
+    $scope.seleccionAlmacenaje = '';
+  }
+
+  $scope.agregarAceite = function(retiro, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
+    var id_item;
+    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+      var listaItems = [];
+      id_item = 1;
+    }else{
+     var listaItems = $scope.listaItems;
+     var index = listaItems.length - 1;
+     id_item = listaItems[index].id_item + 1;
+    }
+
+    if (composito) {
+      estrato = null;
+    }else {
+      $scope.valorSuperior;
+      $scope.valorMedio;
+      $scope.valorInferior;
+      var nuevoEstrato = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
+    }
+
+    var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+    listaItems.push(nuevo);
+    $scope.listaItems = listaItems;
+    $scope.codigo = '';
+    $scope.retiro = '';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    $scope.estrato = '';
+    $scope.composito = '';
+    $scope.tipoAceite = '';
+    $scope.fabricante = '';
+  }
+
+
+
+
+
+  $scope.removerLote = function(id_lote, lista){
+
+    var lista = lista;
+    var nuevaLista = [];
+
+    for (var i = 0; i < lista.length; i++) {
+      if (id_lote !== lista[i].id_lote) {
+        nuevaLista.push(lista[i]);
+      }
+    }
+
+    $scope.listaLotes = nuevaLista;
+
+    if (nuevaLista.length === 0) {
+      $scope.habilitarSelector = false;
+    }else{
+      $scope.habilitarSelector = true;
+    }
+
+    $notify.setTime(4).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+    $notify.setPosition('bottom-left');
+    $notify.error('Notificacion', 'Item Removido');
+  }
+
+
+
+  $scope.agregarSolicitud = function (fecha_muestreo, lista, cliente, tipo){
+
+    var hoy = new Date();
+    var lote = lista;
+    var auto = {id_solicitud: 'solicitud', id_cliente: cliente.id_usuario};
+
+    if (fecha_muestreo <= hoy) {
+      $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+      $notify.setPosition('bottom-left');
+      $notify.info('Notificacion', 'Fecha de muestreo no valida');
+    }else if (lote.length === 0) {
+      $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+      $notify.setPosition('bottom-left');
+      $notify.info('Notificacion', 'La solicitud sin item(s)');
+    }else {
+
+      $http.post('/api/contador', auto).success(function(response){
+        var nuevo = [{"id_proceso" : 1, "descripcion" : "Solicitud iniciada", "color" : "01DF01", "icono" : "check", "visible" : true}];
+        var solicitud = {id_solicitud: response.id_solicitud, id_solicitud_cliente: response.id_solicitud_cliente, cliente: cliente, fecha_creacion: $scope.fecha_creacion, fecha_muestreo: fecha_muestreo, estado: 'En aprobacion', lote: lote, proceso: nuevo, tipoMuestreo: {'id_muestreo': tipo.id_tipoMuestreo, 'descripcion': tipo.descripcion }};
+        $http.post('/api/solicitud', solicitud).success(function(respuesta){
+          $rootScope.$emit("identificadorSolicitud", respuesta);
+        });
+
+        var aviso = {usuario: $rootScope.loggedUser.id_usuario, name: 'Solicitud', id: solicitud.id_solicitud_cliente, online: 'nuevaSolicitud', status: 'fa-file ', id_solicitud: solicitud.id_solicitud};
+        $http.post('/api/avisos', aviso).success(function(respu){
+          $rootScope.chatUsers = respu;
+        })
+        var aviso = {usuario: 1, name: 'Solicitud', id: solicitud.id_solicitud, online: 'nuevaSolicitud', status: 'fa-file ', id_solicitud: solicitud.id_solicitud};
+        $http.post('/api/avisos', aviso).success(function(respu){
+        })
+        $rootScope.$on("identificadorSolicitud", function(event, solicitud){
+          $scope.valida = true;
+          var mail = {nombre: 'Qualified', para: $rootScope.loggedUser.correo, asunto: 'Alerta Qualified', contenido: 'Solicitud ' + solicitud.id_solicitud + ' creada por ' + $rootScope.loggedUser.nombre};
+          $http.post('/api/mail', mail).success(function(respuesta){});
+          $http.get('/api/usuarioId/' + 1).success(function(respu){
+            var mail = {nombre: 'Qualified', para: respu[0].correo, asunto: 'Alerta Qualified', contenido: 'Solicitud ' + solicitud.id_solicitud + ' creada por ' + $rootScope.loggedUser.nombre};
+            $http.post('/api/mail', mail).success(function(respuesta){});
+          });
+        });
+      });
+      $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+      $notify.setPosition('bottom-left');
+      $notify.success('Notificacion', 'Solicitud Generada');
+      $rootScope.listaLotes = [];
+      $rootScope.listaLote = [];
+    }
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
  // ----------------------------------------------------------------------------------
 
@@ -202,6 +451,7 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
       }
   }
 
+  // Metodo Modal Muestreo
   // ----------------------------------------------------------------------------------
 
   $scope.cargarModalMuestreo = function(valor){
@@ -295,6 +545,8 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
     $scope.mostrarSubAnalisis = true;
   }
 
+
+  // Metodo Modal Alimento
   // ---------------------------------------------------------------------------
 
   $scope.cargarModalAlimento = function(valor){
@@ -559,4 +811,28 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
 
   //-----------------------------------------------------------------------------------------------------------------//
 
-})
+});
+
+// ------------------------------------------------------------------------------------
+
+app.controller('limpiarCampos', function($rootScope, $scope){
+
+  $rootScope.limpiarCamposModal = function(){
+
+    $scope.materiaPrima = null;
+    $scope.trader = "";
+    $scope.pais = "";
+    $scope.modalLote = "";
+    $scope.modalBulto = "";
+    $scope.modalCantidad = "";
+    $scope.modalContenedor = "";
+    $scope.modalId = "";
+    $scope.modalProcedencia = "";
+    $scope.bodega = "";
+    $scope.modalTipo = "";
+    $scope.traders = "";
+    $scope.guardar = false;
+
+  };
+
+});

@@ -260,7 +260,7 @@ app.controller('SolicitudAlimentoController', function ($scope, $notify, $http, 
     }else {
       $http.post('/api/contador', auto).success(function(response){
         var nuevo = [{"id_proceso" : 1, "descripcion" : "Solicitud iniciada", "color" : "01DF01", "icono" : "check", "visible" : true}];
-        var solicitud = {id_solicitud: response.id_solicitud, id_solicitud_cliente: response.id_solicitud_cliente, cliente: $rootScope.loggedUser, fecha_creacion: $scope.fecha_creacion, fecha_muestreo: fecha_muestreo, estado: 'En aprobacion', lote: lote, proceso: nuevo, tipoMuestreo: $rootScope.idTipo};
+        var solicitud = {id_solicitud: response.id_solicitud, id_solicitud_cliente: response.id_solicitud_cliente, cliente: $rootScope.loggedUser, fecha_creacion: $scope.fecha_creacion, fecha_muestreo: fecha_muestreo, estado: 'En aprobacion', lote: lote, proceso: nuevo, tipoMuestreo: {'id_muestreo': $rootScope.idTipo, 'descripcion': $rootScope.titulo}};
         $http.post('/api/solicitud', solicitud).success(function(respuesta){
           $rootScope.$emit("identificadorSolicitud", respuesta);
         });

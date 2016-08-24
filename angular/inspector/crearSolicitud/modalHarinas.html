@@ -1,4 +1,4 @@
-<div class="scrollable modal col-lg-6 center-block" ui-if='modalHarina' ui-state='modalHarina'>
+<div class="scrollable modal col-lg-6 center-block" ui-if="modalHarina" ui-state="modalHarina" ng-controller="limpiarCampos">
   <div class="modal-backdrop in"></div>
   <div class="scrollable-content modal-dialog">
     <div class="modal-content ">
@@ -81,8 +81,8 @@
 
           <div class="col-md-12" style=" margin-top: 3%;">
             <button class="btn btn-primary col-md-4" style="margin-left: 33%;"
-            ng-click="agregarLote(materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, traders, retiro, modalProcedencia)"
-            ng-disabled="!(!!materiaPrima && !!trader && !!pais && !!modalLote && !!modalBulto && !!modalCantidad && !!modalContenedor && !!bodega && !!modalId && !!retiro)"
+            ng-click="agregarLote(materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, traders, retiro, modalProcedencia, listaLotes)"
+            ng-disabled="!(!!materiaPrima && !!trader && !!pais && !!modalLote && !!modalBulto && !!modalCantidad && !!modalContenedor && !!bodega)"
             >Agregar Item</button>
           </div>
 

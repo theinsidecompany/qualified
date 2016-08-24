@@ -1,12 +1,12 @@
 app.controller('muestreoController', function ($scope, $notify, $http, $rootScope, $location, $timeout, Upload){
-  // 
-  // listarSolTrader();
-  // listarBodegas();
-  // listarPaises();
-  // validaTrader();
-  // cargarLista();
-  // listarMateriaPrima();
-  // listarTraders();
+
+  listarSolTrader();
+  listarBodegas();
+  listarPaises();
+  validaTrader();
+  cargarLista();
+  listarMateriaPrima();
+  listarTraders();
 
   $scope.retiro = "muestreo";
   $scope.retiroAnimal = "muestreo";
@@ -177,7 +177,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
     $scope.listaTipoAnalisis = listaTipoAnalisis;
   }
 
-  $scope.agregarGranos = function(codigo, retiro, tipoMuestra, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
+  $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
     var id_item;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
@@ -188,7 +188,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
      id_item = listaItems[index].id_item + 1;
     }
 
-    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
+    var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
     $scope.codigo = '';
@@ -206,7 +206,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
     $scope.seleccionAlmacenaje = '';
   }
 
-  $scope.agregarAceite = function(codigo, retiro, tipo, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
+  $scope.agregarAceite = function(retiro, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
     var id_item;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
@@ -223,10 +223,10 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
       $scope.valorSuperior;
       $scope.valorMedio;
       $scope.valorInferior;
-      var nuevo = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
+      var nuevoEstrato = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
     }
 
-    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipo, 'composito': composito, 'estrato': nuevo, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+    var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
     $scope.codigo = '';
@@ -264,7 +264,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
     }else {
       $http.post('/api/contador', auto).success(function(response){
         var nuevo = [{"id_proceso" : 1, "descripcion" : "Solicitud iniciada", "color" : "01DF01", "icono" : "check", "visible" : true}];
-        var solicitud = {id_solicitud: response.id_solicitud, id_solicitud_cliente: response.id_solicitud_cliente, cliente: $rootScope.loggedUser, fecha_creacion: $scope.fecha_creacion, fecha_muestreo: fecha_muestreo, estado: 'En aprobacion', lote: lote, proceso: nuevo, tipoMuestreo: $rootScope.idTipo};
+        var solicitud = {id_solicitud: response.id_solicitud, id_solicitud_cliente: response.id_solicitud_cliente, cliente: $rootScope.loggedUser, fecha_creacion: $scope.fecha_creacion, fecha_muestreo: fecha_muestreo, estado: 'En aprobacion', lote: lote, proceso: nuevo, tipoMuestreo: {'id_muestreo': $rootScope.idTipo, 'descripcion': $rootScope.titulo}};
         $http.post('/api/solicitud', solicitud).success(function(respuesta){
           $rootScope.$emit("identificadorSolicitud", respuesta);
         });
