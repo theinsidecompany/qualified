@@ -61,27 +61,26 @@
           </div>
           <div>
             <div class="col-md-8">
-              <select class="col-md-12 form-control" ng-model="tipoSeleccion" ng-options="opt as opt.descripcion for opt in listaMuestreo">
+              <select class="col-md-12 form-control" ng-model="tipoSeleccion" ng-options="opt as opt.descripcion for opt in listaMuestreo" ng-change="habilitarBotonMuestreo(tipoSeleccion)">
                 <option value="" selected disabled style="display: none;">Seleccione Muestreo</option>
               </select>
             </div>
           </div>
         </div>
 
-
         <div class="col-md-12">
-          <div class="col-md-4" style="margin-bottom: 8%;">
+          <div ng-show="habilitaHarina" class="col-md-4" style="margin-bottom: 8%;">
             <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalHarina">Harina</button>
           </div>
-          <div class="col-md-4" style="margin-bottom: 8%;">
+          <div ng-show="habilitaAlimento" class="col-md-4" style="margin-bottom: 8%;">
             <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalAlimento">Alimento</button>
           </div>
-          <div class="col-md-4" style="margin-bottom: 8%;">
+          <div ng-show="habilitaMuestreo" class="col-md-4" style="margin-bottom: 8%;">
             <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalMuestreo">Muestreos</button>
           </div>
 
 
-          <div class="col-md-4" >
+          <div ng-show="habilitaEnvio" class="col-md-4" >
             <button class="btn btn-primary col-xs-12 col-md-12" ng-click="agregarSolicitud(fecha_muestreo)">Enviar Solicitud</button>
           </div>
         </div>

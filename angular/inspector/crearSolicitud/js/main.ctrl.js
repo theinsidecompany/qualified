@@ -1,9 +1,5 @@
 app.controller('crearSolicitudInspectorController',function ($scope, $http ,$rootScope , $notify, $timeout) {
 
-
-
-
-
   $scope.cambioCliente = function(usuario){
     $http.get('/api/listarTipoMuestreo').success(function(response){
       var lista = [];
@@ -30,14 +26,6 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
       $scope.listaMuestreo = listaM;
     });
   }
-
-
-  
-
-
-
-
-
 
   //Funcion que trae los clientes de la base de datos.
   //-----------------------------------------------------------------------------------//
@@ -149,5 +137,33 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
   }
 
   //-----------------------------------------------------------------------------------------------------------------//
+
+  $scope.habilitaHarina = false;
+  $scope.habilitaMuestreo = false;
+  $scope.habilitaAlimento = false;
+  $scope.habilitaEnvio = false;
+
+  $scope.habilitarBotonMuestreo = function(valor){
+
+    var id_tipoMuerstreo = valor.id_tipoMuestreo;
+
+    if (id_tipoMuerstreo === 1) {
+      $scope.habilitaHarina = true;
+      $scope.habilitaMuestreo = false;
+      $scope.habilitaAlimento = false;
+      $scope.habilitaEnvio = true;
+    }else if (id_tipoMuerstreo === 2) {
+      $scope.habilitaHarina = false;
+      $scope.habilitaMuestreo = false;
+      $scope.habilitaAlimento = true;
+      $scope.habilitaEnvio = true;
+    }else{
+      $scope.habilitaHarina = false;
+      $scope.habilitaMuestreo = true;
+      $scope.habilitaAlimento = false;
+      $scope.habilitaEnvio = true;
+    }
+
+  }
 
 })

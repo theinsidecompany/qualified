@@ -1,4 +1,4 @@
-var TipoMuestreo = require('../modelo/TipoMuestreo');
+var TipoMuestreo = require('../modelo/tipoMuestreo');
 var AlimentosRsa = require('../modelo/alimentosRsa');
 var SubAlimentoRsa = require('../modelo/subTipoAlimentosRsa');
 var AnalisisSubAlimento = require('../modelo/analisisSubAlimentoRSA');
