@@ -60,7 +60,7 @@
           </select>
 
           <span class="col-md-1"><Strong>País</Strong></span>
-          <select class="form-control col-md-2" ng-model="pais" ng-disabled="!(!!trader)" ng-options="opt.nombrePais as opt.nombrePais for opt in listarPaises">
+          <select class="form-control col-md-2" ng-model="pais" ng-options="opt.nombrePais as opt.nombrePais for opt in listarPaises">
             <option value="" disabled selected style="display: none;">Seleccione Origen</option>
           </select>
 
@@ -84,7 +84,7 @@
 
         <span class="col-md-4"></span>
         <span class="col-md-2"><Strong>Tipo Muestreo</Strong></span>
-        <select class="form-control col-md-2" ng-model="muestreo" ng-options="opt.tipoMuestreo as opt.tipoMuestreo for opt in listaMuestreo">
+        <select class="form-control col-md-2" ng-model="muestreo" ng-options="opt.tipoMuestreo as opt.descripcion for opt in listaMuestreo">
         </select>
 
         <div class="col-xs-12" style="margin-top: 2%;">
