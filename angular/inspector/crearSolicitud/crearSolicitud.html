@@ -70,15 +70,14 @@
 
         <div class="col-md-12">
           <div ng-show="habilitaHarina" class="col-md-4" style="margin-bottom: 8%;">
-            <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalHarina">Harina</button>
+            <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalHarina" ng-click="cargarModalHarina()">Harina</button>
           </div>
           <div ng-show="habilitaAlimento" class="col-md-4" style="margin-bottom: 8%;">
-            <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalAlimento">Alimento</button>
+            <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalAlimento" ng-click="cargarModalAlimento(tipoSeleccion)">Alimento</button>
           </div>
           <div ng-show="habilitaMuestreo" class="col-md-4" style="margin-bottom: 8%;">
-            <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalMuestreo">Muestreos</button>
+            <button class="btn btn-primary col-xs-12 col-md-12" ui-turn-on="modalMuestreo" ng-click="cargarModalMuestreo(tipoSeleccion)">Muestreos</button>
           </div>
-
 
           <div ng-show="habilitaEnvio" class="col-md-4" >
             <button class="btn btn-primary col-xs-12 col-md-12" ng-click="agregarSolicitud(fecha_muestreo)">Enviar Solicitud</button>

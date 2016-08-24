@@ -1,12 +1,12 @@
 app.controller('muestreoController', function ($scope, $notify, $http, $rootScope, $location, $timeout, Upload){
-
-  listarSolTrader();
-  listarBodegas();
-  listarPaises();
-  validaTrader();
-  cargarLista();
-  listarMateriaPrima();
-  listarTraders();
+  // 
+  // listarSolTrader();
+  // listarBodegas();
+  // listarPaises();
+  // validaTrader();
+  // cargarLista();
+  // listarMateriaPrima();
+  // listarTraders();
 
   $scope.retiro = "muestreo";
   $scope.retiroAnimal = "muestreo";
