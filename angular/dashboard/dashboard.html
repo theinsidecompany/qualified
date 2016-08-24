@@ -1,21 +1,124 @@
 <div class="scrollable">
-  <div class="scrollable-content section text-center">
-    <div class="list-group-item list-group-item-home">
-      <h1>Dashboard Qualified
-      </h1>
-    </div>
+    <div class="scrollable-content section text-center">
 
-    <div class="list-group-item list-group-item-home">
-      <div>
-        <h3 class="home-heading">Solicitudes</h3>
-        Respecto a la Gestión de Solicitudes
-      </div>
-      <div ng-controller="chart1">
-        <highchart class="chart" config="chartConfig"></highchart>
-      </div>
-    </div>
+        <div class="list-group-item list-group-item-home">
+            <h1>Dashboard Solicitante
+    </h1>
+        </div>
 
-    <div class="list-group-item list-group-item-home">
+        <div class="stepwizard col-md-offset-3" style="margin-top: 2%;">
+            <div class="stepwizard-row setup-panel">
+                <div class="stepwizard-step">
+                    <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+                    <p>Solicitud Iniciada</p>
+                </div>
+                <div class="stepwizard-step">
+                    <a href="#step-2" type="button" class="btn btn-default btn-circle" >2</a>
+                    <p>Inspección Asignada</p>
+                </div>
+                <div class="stepwizard-step">
+                    <a href="#step-3" type="button" class="btn btn-default btn-circle" >3</a>
+                    <p>Laboratorio</p>
+                </div>
+                <div class="stepwizard-step">
+                    <a href="#step-4" type="button" class="btn btn-default btn-circle" >4</a>
+                    <p>Inspección de Transporte</p>
+                </div>
+            </div>
+        </div>
+        <div ng-controller="chartTree">
+            <div id="container"></div>
+        </div>
+
+
+
+        <div class="col-md-12 col-xs-12" ng-controller="chart1">
+
+            <div class="col-md-4 col-xs-12" style="margin-bottom: 3%;">
+                <button class="btn btn-default col-md-12 col-xs-12" style="height: 75px;" ng-click="mostrarDashboard(1)">Tipo de Muestreos Solicitados</button>
+                <button class="btn btn-default col-md-12 col-xs-12" style="height: 75px;" ng-click="mostrarDashboard(2)">Total Lotes</button>
+                <button class="btn btn-default col-md-12 col-xs-12" style="height: 75px;" ng-click="mostrarDashboard(3)">Productos Disponible por Bodega</button>
+                <button class="btn btn-default col-md-12 col-xs-12" style="height: 75px;" ng-click="mostrarDashboard(4)">Cantidad por Proveedor</button>
+                <button class="btn btn-default col-md-12 col-xs-12" style="height: 75px;" ng-click="mostrarDashboard(5)">Cantidad por Planta Procedencia</button>
+                <button class="btn btn-default col-md-12 col-xs-12" style="height: 75px;" ng-click="mostrarDashboard(6)">Cantidad por Pais</button>
+            </div>
+
+            <!--------------------------------------------------------------------------------------------------->
+            <div class="col-md-8 col-xs-12" ng-show="habilitaTipoMuestreo">
+                <div class="list-group-item list-group-item-home">
+                    <!-- <div>
+                <h3 class="home-heading">Solicitudes</h3>
+                Respecto a la Gestión de Solicitudes
+              </div> -->
+                    <highchart class="chart" config="chartConfig"></highchart>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------------->
+            <div class="col-md-8 col-xs-12" ng-show="habilitaTotalLote">
+                <div class="list-group-item list-group-item-home">
+                    <!-- <div>
+                <h3 class="home-heading">Solicitudes</h3>
+                Respecto a la Gestión de Solicitudes
+              </div> -->
+                    <highchart class="chart" config="chartConfig2"></highchart>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------------->
+            <div class="col-md-8 col-xs-12" ng-show="habilitaPorBodega">
+                <div class="list-group-item list-group-item-home">
+                    <!-- <div>
+                <h3 class="home-heading">Solicitudes</h3>
+                Respecto a la Gestión de Solicitudes
+              </div> -->
+                    <highchart class="chart" config="chartConfig3"></highchart>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------------->
+            <!--------------------------------------------------------------------------------------------------->
+            <div class="col-md-8 col-xs-12" ng-show="habilitaPorProveedor">
+                <div class="list-group-item list-group-item-home">
+                    <!-- <div>
+                <h3 class="home-heading">Solicitudes</h3>
+                Respecto a la Gestión de Solicitudes
+              </div> -->
+                    <highchart class="chart" config="chartConfig4"></highchart>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------------->
+            <!--------------------------------------------------------------------------------------------------->
+            <div class="col-md-8 col-xs-12" ng-show="habilitaPorPlanta">
+                <div class="list-group-item list-group-item-home">
+                    <!-- <div>
+                <h3 class="home-heading">Solicitudes</h3>
+                Respecto a la Gestión de Solicitudes
+              </div> -->
+                    <highchart class="chart" config="chartConfig5"></highchart>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------------->
+            <!--------------------------------------------------------------------------------------------------->
+            <div class="col-md-8 col-xs-12" ng-show="habilitaPorPais">
+                <div class="list-group-item list-group-item-home">
+                    <!-- <div>
+                <h3 class="home-heading">Solicitudes</h3>
+                Respecto a la Gestión de Solicitudes
+              </div> -->
+                    <highchart class="chart" config="chartConfig6"></highchart>
+                </div>
+            </div>
+            <!--------------------------------------------------------------------------------------------------->
+        </div>
+
+
+
+
+
+
+
+
+
+
+        <!-- <div class="list-group-item list-group-item-home">
       <h3 class="home-heading">Stock</h3>
       Respecto al Stock de Materias Primas
     </div>
@@ -23,11 +126,14 @@
         <highchart class="chart" config="chartConfig" ></highchart>
       </div>
       <div>
-    </div>
+    </div> -->
 
-    <div ui-content-for="modals">
-      <div ng-include="'modalAvisos/mensajeAvisos.html'"></div>
-    </div>
+        <div ui-content-for="modals">
+            <div ng-include="'modalAvisos/mensajeAvisos.html'"></div>
+        </div>
 
-  </div>
+
+
+
+    </div>
 </div>
