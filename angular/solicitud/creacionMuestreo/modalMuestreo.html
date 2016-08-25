@@ -1,4 +1,4 @@
-<div class="scrollable modal col-lg-6 center-block" ui-if='modalMuestreo' ui-state='modalMuestreo'>
+<div class="scrollable modal col-lg-6 center-block" ui-if='modalMuestreo' ui-state='modalMuestreo' ng-controller="limpiarCamposSolicitante">
   <div class="modal-backdrop in"></div>
   <div class="scrollable-content modal-dialog">
     <div class="modal-content ">
@@ -80,7 +80,7 @@
 
             <div class="col-md-12" ng-disabled="composito" style="margin-top: 1%;">
               <center>
-                <label class="col-md-12">Estarto</label>
+                <label class="col-md-12">Estratos</label>
                 <button ng-disabled="composito" class="btn btn-{{colorSuperior}}" ng-click="seleccionarSuperior()">Superior</button>
                 <button ng-disabled="composito" class="btn btn-{{colorMedio}}" ng-click="seleccionarMedio()">Medio</button>
                 <button ng-disabled="composito" class="btn btn-{{colorInferior}}" ng-click="seleccionarInferior()">Inferior</button>
@@ -98,7 +98,8 @@
             </div>
 
             <div class="col-md-12">
-              <button class="btn btn-primary" ng-click="agregarAceite(retiroAnimal, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante, codigo, tipoMuestra)"
+              <button class="btn btn-primary" ng-disabled="!(!!traders && !!pais && !!bodega && !!encargadoBodega && !!procedencia && !!toneladas &&tipoAceite && fabricante)"
+              ng-click="agregarAceite(retiroAnimal, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante, codigo, tipoMuestra)"
               >Listo aceite</button>
             </div>
 
@@ -116,7 +117,7 @@
 
             <div class="col-md-12" style="margin-top: 1%;">
               <label class="col-md-3">Proveedor</label>
-              <select class="form-control col-md-9" ng-model="trader" ng-disabled="!(!!materiaPrima)" ng-options="opt as opt.nombreTrader for opt in listaTraders">
+              <select class="form-control col-md-9" ng-model="trader" ng-options="opt as opt.nombreTrader for opt in listaTraders">
                 <option value="" disabled selected style="display: none;">Seleccione Proveedor</option>
               </select>
             </div>
@@ -159,7 +160,7 @@
           </div>
 
           <div class="col-md-12" ng-show="mostrarMuestreo">
-            <button class="btn btn-primary" ng-click="agregarMuestreo(codigo, retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis)"
+            <button ng-disabled="!(!!codigo && !!pais && !!bodega && !!encargadoBodega && !!procedencia && !!toneladas && !!tipoMuestra)" class="btn btn-primary" ng-click="agregarMuestreo(codigo, retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis, tipoMuestra)"
             >Listo muestra</button>
           </div>
 

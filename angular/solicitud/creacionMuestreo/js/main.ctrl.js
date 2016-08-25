@@ -144,69 +144,82 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
       $scope.mostrarGranos = false;
       $scope.mostrarTipo = true;
     }
+
+    $scope.colorSuperior = "warning";
+    $scope.colorMedio = "warning";
+    $scope.colorInferior = "warning";
+    $scope.valorSuperior = false;
+    $scope.valorMedio = false;
+    $scope.valorInferior = false;
+
   }
 
 
 
-  $scope.agregarMuestreo = function(codigo, retiro, tipoMuestra, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis){
-    var id_item;
-    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
-      var listaItems = [];
-      id_item = 1;
-    }else{
-     var listaItems = $scope.listaItems;
-     var index = listaItems.length -1;
-     id_item = listaItems[index].id_item + 1;
-    }
+  $scope.agregarMuestreo = function(codigo, retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis, tipoMuestra){
 
-    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
-    listaItems.push(nuevo);
-    $scope.listaItems = listaItems;
-    $scope.codigo = '';
-    $scope.retiro = '';
-    $scope.tipoMuestra = '';
-    $scope.traders = '';
-    $scope.pais = '';
-    $scope.bodega = '';
-    $scope.encargadoBodega = '';
-    $scope.procedencia = '';
-    $scope.toneladas = '';
+    var cont = 0;
+
     for (var i = 0; i < listaTipoAnalisis.length; i++) {
-      listaTipoAnalisis[i].selAnalisis = false;
-    }
-    $scope.listaTipoAnalisis = listaTipoAnalisis;
-  }
 
-  $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
-    var id_item;
-    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
-      var listaItems = [];
-      id_item = 1;
+      if (listaTipoAnalisis[i].selAnalisis === true) {
+        cont++;
+      }
+
+    }
+
+    if (cont <= 0) {
+
+      $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+      $notify.setPosition('bottom-left');
+      $notify.info('Notificacion', 'Sin Seleeccion de Analisis');
+
     }else{
-     var listaItems = $scope.listaItems;
-     var index = listaItems.length - 1;
-     id_item = listaItems[index].id_item + 1;
+
+      var id_item;
+      if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+        var listaItems = [];
+        id_item = 1;
+      }else{
+       var listaItems = $scope.listaItems;
+       var index = listaItems.length -1;
+       id_item = listaItems[index].id_item + 1;
+      }
+
+      var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
+      listaItems.push(nuevo);
+      $scope.listaItems = listaItems;
+      for (var i = 0; i < listaTipoAnalisis.length; i++) {
+        listaTipoAnalisis[i].selAnalisis = false;
+      }
+      $scope.listaTipoAnalisis = listaTipoAnalisis;
+      $rootScope.limpiarMuestreo();
     }
 
-    var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
-    listaItems.push(nuevo);
-    $scope.listaItems = listaItems;
-    $scope.codigo = '';
-    $scope.retiro = '';
-    $scope.tipoMuestra = '';
-    $scope.traders = '';
-    $scope.pais = '';
-    $scope.bodega = '';
-    $scope.encargadoBodega = '';
-    $scope.procedencia = '';
-    $scope.toneladas = '';
-    $scope.materiaPrima = '';
-    $scope.trader = '';
-    $scope.temperatura = '';
-    $scope.seleccionAlmacenaje = '';
+    $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
+      var id_item;
+      if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+        var listaItems = [];
+        id_item = 1;
+      }else{
+       var listaItems = $scope.listaItems;
+       var index = listaItems.length - 1;
+       id_item = listaItems[index].id_item + 1;
+      }
+
+      var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
+      listaItems.push(nuevo);
+      $scope.listaItems = listaItems;
+      $rootScope.limpiarGrano();
+
+    }
+
   }
 
   $scope.agregarAceite = function(retiro, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
+
+
+
     var id_item;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
@@ -220,28 +233,25 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
     if (composito) {
       estrato = null;
     }else {
-      $scope.valorSuperior;
-      $scope.valorMedio;
-      $scope.valorInferior;
-      var nuevoEstrato = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
+      if ($scope.valorSuperior === false && $scope.valorMedio === false && $scope.valorInferior === false) {
+        $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+        $notify.setPosition('bottom-left');
+        $notify.info('Notificacion', 'Debe seleccionar al menos un estrato');
+      }else{
+        $scope.valorSuperior;
+        $scope.valorMedio;
+        $scope.valorInferior;
+        var nuevoEstrato = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
+
+        var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+        listaItems.push(nuevo);
+        $scope.listaItems = listaItems;
+        $rootScope.limpiarAceite();
+
+      }
+
     }
 
-    var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
-    listaItems.push(nuevo);
-    $scope.listaItems = listaItems;
-    $scope.codigo = '';
-    $scope.retiro = '';
-    $scope.tipoMuestra = '';
-    $scope.traders = '';
-    $scope.pais = '';
-    $scope.bodega = '';
-    $scope.encargadoBodega = '';
-    $scope.procedencia = '';
-    $scope.toneladas = '';
-    $scope.estrato = '';
-    $scope.composito = '';
-    $scope.tipoAceite = '';
-    $scope.fabricante = '';
   }
 
   $scope.eliminar = function(index, listaItems){
@@ -387,5 +397,109 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
 
   //-----------------------------------------------------------------------------------------------------------------//
 
+
+});
+
+
+app.controller('limpiarCamposSolicitante', function($rootScope, $scope){
+
+  $rootScope.limpiarMuestreo = function(){
+
+    $scope.codigo = '';
+    $scope.retiro = 'muestreo';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+
+  };
+
+  $rootScope.limpiarGrano = function(){
+
+    $scope.codigo = '';
+    $scope.retiroAnimal = 'muestreo';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    $scope.materiaPrima = '';
+    $scope.trader = '';
+    $scope.temperatura = '';
+    $scope.seleccionAlmacenaje = '';
+
+  };
+
+  $rootScope.limpiarAceite = function(){
+
+    $scope.codigo = '';
+    $scope.retiroAnimal = 'muestreo';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    $scope.estrato = '';
+    $scope.composito = '';
+    $scope.tipoAceite = '';
+    $scope.fabricante = '';
+
+    $scope.compositoSeleccion =  function(){
+      $scope.colorSuperior = "warning";
+      $scope.colorMedio = "warning";
+      $scope.colorInferior = "warning";
+      $scope.valorSuperior = false;
+      $scope.valorMedio = false;
+      $scope.valorInferior = false;
+    }
+
+
+    $scope.colorSuperior = "warning";
+    $scope.colorMedio = "warning";
+    $scope.colorInferior = "warning";
+    $scope.valorSuperior = false;
+    $scope.valorMedio = false;
+    $scope.valorInferior = false;
+
+    $scope.seleccionarSuperior = function(){
+
+        if ($scope.colorSuperior === "success") {
+          $scope.colorSuperior = "warning";
+          $scope.valorSuperior = false;
+        }else {
+          $scope.colorSuperior = "success";
+          $scope.valorSuperior = true;
+        }
+    }
+
+    $scope.seleccionarMedio = function(){
+        if ($scope.colorMedio === "success") {
+          $scope.colorMedio = "warning";
+          $scope.valorMedio = false;
+        }else {
+          $scope.colorMedio = "success"
+          $scope.valorMedio = true;
+        }
+    }
+
+    $scope.seleccionarInferior = function(){
+        if ($scope.colorInferior === "success") {
+          $scope.colorInferior = "warning";
+          $scope.valorInferior = false;
+        }else {
+          $scope.colorInferior = "success"
+          $scope.valorInferior = true;
+        }
+    }
+
+
+  };
 
 });
