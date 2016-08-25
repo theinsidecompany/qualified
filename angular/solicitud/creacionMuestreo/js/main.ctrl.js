@@ -12,6 +12,10 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
   $scope.retiroAnimal = "muestreo";
 
 
+  $rootScope.mostarTablaGrano = false;
+  $rootScope.mostarTablaAceite = false;
+  $rootScope.mostrarTablaMuestreo = false;
+
   $scope.compositoSeleccion =  function(){
     $scope.colorSuperior = "warning";
     $scope.colorMedio = "warning";
@@ -31,33 +35,33 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
 
   $scope.seleccionarSuperior = function(){
 
-      if ($scope.colorSuperior === "success") {
-        $scope.colorSuperior = "warning";
-        $scope.valorSuperior = false;
-      }else {
-        $scope.colorSuperior = "success";
-        $scope.valorSuperior = true;
-      }
+    if ($scope.colorSuperior === "success") {
+      $scope.colorSuperior = "warning";
+      $scope.valorSuperior = false;
+    }else {
+      $scope.colorSuperior = "success";
+      $scope.valorSuperior = true;
+    }
   }
 
   $scope.seleccionarMedio = function(){
-      if ($scope.colorMedio === "success") {
-        $scope.colorMedio = "warning";
-        $scope.valorMedio = false;
-      }else {
-        $scope.colorMedio = "success"
-        $scope.valorMedio = true;
-      }
+    if ($scope.colorMedio === "success") {
+      $scope.colorMedio = "warning";
+      $scope.valorMedio = false;
+    }else {
+      $scope.colorMedio = "success"
+      $scope.valorMedio = true;
+    }
   }
 
   $scope.seleccionarInferior = function(){
-      if ($scope.colorInferior === "success") {
-        $scope.colorInferior = "warning";
-        $scope.valorInferior = false;
-      }else {
-        $scope.colorInferior = "success"
-        $scope.valorInferior = true;
-      }
+    if ($scope.colorInferior === "success") {
+      $scope.colorInferior = "warning";
+      $scope.valorInferior = false;
+    }else {
+      $scope.colorInferior = "success"
+      $scope.valorInferior = true;
+    }
   }
 
   function listarSolTrader(){
@@ -156,7 +160,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
 
 
 
-  $scope.agregarMuestreo = function(codigo, retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis, tipoMuestra){
+  $scope.agregarMuestreo = function(codigo, retiro, listaTipoAnalisis, tipoMuestra){
 
     var cont = 0;
 
@@ -181,40 +185,53 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
         var listaItems = [];
         id_item = 1;
       }else{
-       var listaItems = $scope.listaItems;
-       var index = listaItems.length -1;
-       id_item = listaItems[index].id_item + 1;
+        var listaItems = $scope.listaItems;
+        var index = listaItems.length -1;
+        id_item = listaItems[index].id_item + 1;
       }
 
-      var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
+      var listaDescripcion = '';
+
+      for (var i = 0; i < listaTipoAnalisis.length; i++) {
+        if (listaTipoAnalisis[i].selAnalisis === true && listaDescripcion === '') {
+          listaDescripcion += listaTipoAnalisis[i].descripcion;
+        }else {
+          listaDescripcion +=  " - " + listaTipoAnalisis[i].descripcion;
+        }
+      }
+
+      var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'listaAnalisis': listaTipoAnalisis, 'listaDescripcion': listaDescripcion};
       listaItems.push(nuevo);
       $scope.listaItems = listaItems;
+
       for (var i = 0; i < listaTipoAnalisis.length; i++) {
         listaTipoAnalisis[i].selAnalisis = false;
       }
       $scope.listaTipoAnalisis = listaTipoAnalisis;
       $rootScope.limpiarMuestreo();
+      $rootScope.mostrarTablas(4);
     }
-
-    $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
-      var id_item;
-      if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
-        var listaItems = [];
-        id_item = 1;
-      }else{
-       var listaItems = $scope.listaItems;
-       var index = listaItems.length - 1;
-       id_item = listaItems[index].id_item + 1;
-      }
-
-      var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
-      listaItems.push(nuevo);
-      $scope.listaItems = listaItems;
-      $rootScope.limpiarGrano();
-
-    }
-
   }
+
+  $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
+    var id_item;
+    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+      var listaItems = [];
+      id_item = 1;
+    }else{
+      var listaItems = $scope.listaItems;
+      var index = listaItems.length - 1;
+      id_item = listaItems[index].id_item + 1;
+    }
+
+    var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
+    listaItems.push(nuevo);
+
+    $scope.listaItems = listaItems;
+    $rootScope.mostrarTablas(8);
+    $rootScope.limpiarGrano();
+  }
+
 
   $scope.agregarAceite = function(retiro, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
 
@@ -225,13 +242,18 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
       var listaItems = [];
       id_item = 1;
     }else{
-     var listaItems = $scope.listaItems;
-     var index = listaItems.length - 1;
-     id_item = listaItems[index].id_item + 1;
+      var listaItems = $scope.listaItems;
+      var index = listaItems.length - 1;
+      id_item = listaItems[index].id_item + 1;
     }
 
     if (composito) {
       estrato = null;
+      var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': estrato, 'descripcionEstrato': stringEstrato , 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+      listaItems.push(nuevo);
+      $scope.listaItems = listaItems;
+      $rootScope.mostrarTablas(7);
+      $rootScope.limpiarAceite();
     }else {
       if ($scope.valorSuperior === false && $scope.valorMedio === false && $scope.valorInferior === false) {
         $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
@@ -243,11 +265,19 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
         $scope.valorInferior;
         var nuevoEstrato = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
 
-        var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+        var stringEstrato = '';
+        for (var i = 0; i < nuevoEstrato.length; i++) {
+          if (nuevoEstrato[i].seleccion === true && stringEstrato === '') {
+            stringEstrato += nuevoEstrato[i].estrato;
+          }else {
+            stringEstrato += ' - ' + nuevoEstrato[i].estrato;
+          }
+        }
+        var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'descripcionEstrato': stringEstrato , 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
         listaItems.push(nuevo);
         $scope.listaItems = listaItems;
+        $rootScope.mostrarTablas(7);
         $rootScope.limpiarAceite();
-
       }
 
     }
@@ -403,6 +433,18 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
 
 app.controller('limpiarCamposSolicitante', function($rootScope, $scope){
 
+  $rootScope.mostrarTablas = function(tipo){
+    console.log(tipo);
+    if (tipo >=3 && tipo <= 6) {
+      $rootScope.mostrarTablaMuestreo = true;
+    }else if (tipo === 7) {
+      $rootScope.mostarTablaAceite = true;
+    }else if (tipo === 8) {
+      $rootScope.mostarTablaGrano = true;
+    }
+  }
+
+
   $rootScope.limpiarMuestreo = function(){
 
     $scope.codigo = '';
@@ -470,33 +512,33 @@ app.controller('limpiarCamposSolicitante', function($rootScope, $scope){
 
     $scope.seleccionarSuperior = function(){
 
-        if ($scope.colorSuperior === "success") {
-          $scope.colorSuperior = "warning";
-          $scope.valorSuperior = false;
-        }else {
-          $scope.colorSuperior = "success";
-          $scope.valorSuperior = true;
-        }
+      if ($scope.colorSuperior === "success") {
+        $scope.colorSuperior = "warning";
+        $scope.valorSuperior = false;
+      }else {
+        $scope.colorSuperior = "success";
+        $scope.valorSuperior = true;
+      }
     }
 
     $scope.seleccionarMedio = function(){
-        if ($scope.colorMedio === "success") {
-          $scope.colorMedio = "warning";
-          $scope.valorMedio = false;
-        }else {
-          $scope.colorMedio = "success"
-          $scope.valorMedio = true;
-        }
+      if ($scope.colorMedio === "success") {
+        $scope.colorMedio = "warning";
+        $scope.valorMedio = false;
+      }else {
+        $scope.colorMedio = "success"
+        $scope.valorMedio = true;
+      }
     }
 
     $scope.seleccionarInferior = function(){
-        if ($scope.colorInferior === "success") {
-          $scope.colorInferior = "warning";
-          $scope.valorInferior = false;
-        }else {
-          $scope.colorInferior = "success"
-          $scope.valorInferior = true;
-        }
+      if ($scope.colorInferior === "success") {
+        $scope.colorInferior = "warning";
+        $scope.valorInferior = false;
+      }else {
+        $scope.colorInferior = "success"
+        $scope.valorInferior = true;
+      }
     }
 
 
