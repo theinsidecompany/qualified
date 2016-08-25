@@ -1,4 +1,4 @@
-<div class="scrollable modal col-lg-6 center-block" ui-if='modalAlimento' ui-state='modalAlimento'>
+<div class="scrollable modal col-lg-6 center-block" ui-if='modalAlimento' ui-state='modalAlimento' ng-controller="limpiarCampos">
   <div class="modal-backdrop in"></div>
   <div class="scrollable-content modal-dialog">
     <div class="modal-content ">
@@ -69,7 +69,7 @@
 
         </div>
 
-        <button class="btn btn-primary col-md-12" ng-click="agregarMuestreo(codigo, retiro, tipo, listaAnalisis)">Agregar Muestreo</button>
+        <button class="btn btn-primary col-md-12" ng-click="agregarAlimento(codigo, retiro, tipo, listaAnalisis)">Agregar Muestreo</button>
 
       </div>
 

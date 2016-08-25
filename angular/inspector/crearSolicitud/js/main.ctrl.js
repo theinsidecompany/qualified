@@ -35,7 +35,7 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
 
   }
 
- // -----------------------------------------------------------------------------------------
+  // -----------------------------------------------------------------------------------------
 
   $scope.cambioCliente = function(usuario){
     $http.get('/api/listarTipoMuestreo').success(function(response){
@@ -133,13 +133,13 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
     }
 
     if (traders !== undefined) {
-        var traders = {'id_trader': traders.id_usuario, 'nombre': traders.nombre};
+      var traders = {'id_trader': traders.id_usuario, 'nombre': traders.nombre};
     }else {
       var traders = '';
     }
 
     var nuevo = {'id_lote': id_lote, 'materiaPrima': materiaPrima, 'trader': trader, 'paisTrader': pais, 'lote': lote , 'bultos': bultos , 'cantidad': cantidad , 'contenedor': contenedor, 'bodega': bodega,
-     'estadoLab': 'vacio', 'traders': traders, 'retiro': retiro, 'procedencia': modalProcedencia, tipoMuestreo: {'id_tipoMuestreo': 1, 'descripcion': "Harina"}};
+    'estadoLab': 'vacio', 'traders': traders, 'retiro': retiro, 'procedencia': modalProcedencia, tipoMuestreo: {'id_tipoMuestreo': 1, 'descripcion': "Harina"}};
 
     listaNueva.push(nuevo);
 
@@ -157,27 +157,19 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
       var listaItems = [];
       id_item = 1;
     }else{
-     var listaItems = $scope.listaItems;
-     var index = listaItems.length -1;
-     id_item = listaItems[index].id_item + 1;
+      var listaItems = $scope.listaItems;
+      var index = listaItems.length -1;
+      id_item = listaItems[index].id_item + 1;
     }
 
     var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
-    $scope.codigo = '';
-    $scope.retiro = '';
-    $scope.tipoMuestra = '';
-    $scope.traders = '';
-    $scope.pais = '';
-    $scope.bodega = '';
-    $scope.encargadoBodega = '';
-    $scope.procedencia = '';
-    $scope.toneladas = '';
     for (var i = 0; i < listaTipoAnalisis.length; i++) {
       listaTipoAnalisis[i].selAnalisis = false;
     }
     $scope.listaTipoAnalisis = listaTipoAnalisis;
+    $rootScope.limpiarModalMuestreo();
   }
 
   $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
@@ -186,27 +178,15 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
       var listaItems = [];
       id_item = 1;
     }else{
-     var listaItems = $scope.listaItems;
-     var index = listaItems.length - 1;
-     id_item = listaItems[index].id_item + 1;
+      var listaItems = $scope.listaItems;
+      var index = listaItems.length - 1;
+      id_item = listaItems[index].id_item + 1;
     }
 
     var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
-    $scope.codigo = '';
-    $scope.retiro = '';
-    $scope.tipoMuestra = '';
-    $scope.traders = '';
-    $scope.pais = '';
-    $scope.bodega = '';
-    $scope.encargadoBodega = '';
-    $scope.procedencia = '';
-    $scope.toneladas = '';
-    $scope.materiaPrima = '';
-    $scope.trader = '';
-    $scope.temperatura = '';
-    $scope.seleccionAlmacenaje = '';
+    $rootScope.limpiarModalGranos();
   }
 
   $scope.agregarAceite = function(retiro, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
@@ -215,9 +195,9 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
       var listaItems = [];
       id_item = 1;
     }else{
-     var listaItems = $scope.listaItems;
-     var index = listaItems.length - 1;
-     id_item = listaItems[index].id_item + 1;
+      var listaItems = $scope.listaItems;
+      var index = listaItems.length - 1;
+      id_item = listaItems[index].id_item + 1;
     }
 
     if (composito) {
@@ -232,22 +212,35 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
     var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
-    $scope.codigo = '';
-    $scope.retiro = '';
-    $scope.tipoMuestra = '';
-    $scope.traders = '';
-    $scope.pais = '';
-    $scope.bodega = '';
-    $scope.encargadoBodega = '';
-    $scope.procedencia = '';
-    $scope.toneladas = '';
-    $scope.estrato = '';
-    $scope.composito = '';
-    $scope.tipoAceite = '';
-    $scope.fabricante = '';
+    $rootScope.limpiarCamposModalAceite();
+
   }
 
 
+  $scope.agregarAlimento = function(codigo, retiro, tipo, listaAnalisis){
+    var id_item;
+    if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
+      var listaItems = [];
+      id_item = 1;
+    }else{
+     var listaItems = $scope.listaItems;
+     var index = listaItems.length -1;
+     id_item = listaItems[index].id_item + 1;
+    }
+    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipo, 'listaAnalisis': listaAnalisis};
+    listaItems.push(nuevo);
+    $scope.listaItems = listaItems;
+
+    for (var i = 0; i < listaAnalisis.length; i++) {
+      listaAnalisis[i].selAnalisis = false;
+    }
+    $scope.listaAnalisis = listaAnalisis;
+    $rootScope.limpiarModalAlimentos();
+  }
+
+  $scope.eliminar = function(index, listaItems){
+    listaItems.splice(index, 1);
+  }
 
 
 
@@ -359,46 +352,46 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
 
 
 
- // ----------------------------------------------------------------------------------
+  // ----------------------------------------------------------------------------------
 
-   $scope.mostrarAceite = false;
-   $scope.mostrarGranos = false;
-   $scope.mostrarAnalisis = false;
-   $scope.mostrarMuestreo = false;
-   $scope.mostrarTipo = false;
+  $scope.mostrarAceite = false;
+  $scope.mostrarGranos = false;
+  $scope.mostrarAnalisis = false;
+  $scope.mostrarMuestreo = false;
+  $scope.mostrarTipo = false;
 
-   function habilitarCampos(valor){
+  function habilitarCampos(valor){
 
-     if (valor === null) {
-       $scope.mostrarAceite = false;
-       $scope.mostrarGranos = false;
-       $scope.mostrarAnalisis = false;
-       $scope.mostrarMuestreo = false;
-       $scope.mostrarTipo = false;
-     }else{
-       var idTipo = valor.id_tipoMuestreo;
-     }
+    if (valor === null) {
+      $scope.mostrarAceite = false;
+      $scope.mostrarGranos = false;
+      $scope.mostrarAnalisis = false;
+      $scope.mostrarMuestreo = false;
+      $scope.mostrarTipo = false;
+    }else{
+      var idTipo = valor.id_tipoMuestreo;
+    }
 
-     if (idTipo === 7 || idTipo === 8) {
-       $scope.mostrarAnalisis = false;
-     }else {
-       $scope.mostrarAnalisis = true;
-       $scope.mostrarMuestreo = true;
-       $scope.mostrarTipo = true;
-     }
+    if (idTipo === 7 || idTipo === 8) {
+      $scope.mostrarAnalisis = false;
+    }else {
+      $scope.mostrarAnalisis = true;
+      $scope.mostrarMuestreo = true;
+      $scope.mostrarTipo = true;
+    }
 
-     if (idTipo === 7) {
-       $scope.mostrarAceite = true;
-       $scope.mostrarGranos = false;
-     }else if (idTipo === 8) {
-       $scope.mostrarAceite = false;
-       $scope.mostrarGranos = true;
-     }else {
-       $scope.mostrarAceite = false;
-       $scope.mostrarGranos = false;
-       $scope.mostrarTipo = true;
-     }
-   }
+    if (idTipo === 7) {
+      $scope.mostrarAceite = true;
+      $scope.mostrarGranos = false;
+    }else if (idTipo === 8) {
+      $scope.mostrarAceite = false;
+      $scope.mostrarGranos = true;
+    }else {
+      $scope.mostrarAceite = false;
+      $scope.mostrarGranos = false;
+      $scope.mostrarTipo = true;
+    }
+  }
 
   //  ------------------------------------------------------------------------------
 
@@ -422,33 +415,33 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
 
   $scope.seleccionarSuperior = function(){
 
-      if ($scope.colorSuperior === "success") {
-        $scope.colorSuperior = "warning";
-        $scope.valorSuperior = false;
-      }else {
-        $scope.colorSuperior = "success";
-        $scope.valorSuperior = true;
-      }
+    if ($scope.colorSuperior === "success") {
+      $scope.colorSuperior = "warning";
+      $scope.valorSuperior = false;
+    }else {
+      $scope.colorSuperior = "success";
+      $scope.valorSuperior = true;
+    }
   }
 
   $scope.seleccionarMedio = function(){
-      if ($scope.colorMedio === "success") {
-        $scope.colorMedio = "warning";
-        $scope.valorMedio = false;
-      }else {
-        $scope.colorMedio = "success"
-        $scope.valorMedio = true;
-      }
+    if ($scope.colorMedio === "success") {
+      $scope.colorMedio = "warning";
+      $scope.valorMedio = false;
+    }else {
+      $scope.colorMedio = "success"
+      $scope.valorMedio = true;
+    }
   }
 
   $scope.seleccionarInferior = function(){
-      if ($scope.colorInferior === "success") {
-        $scope.colorInferior = "warning";
-        $scope.valorInferior = false;
-      }else {
-        $scope.colorInferior = "success"
-        $scope.valorInferior = true;
-      }
+    if ($scope.colorInferior === "success") {
+      $scope.colorInferior = "warning";
+      $scope.valorInferior = false;
+    }else {
+      $scope.colorInferior = "success"
+      $scope.valorInferior = true;
+    }
   }
 
   // Metodo Modal Muestreo
@@ -821,6 +814,7 @@ app.controller('limpiarCampos', function($rootScope, $scope){
 
     $scope.materiaPrima = null;
     $scope.trader = "";
+    $scope.retiro = 'muestreo';
     $scope.pais = "";
     $scope.modalLote = "";
     $scope.modalBulto = "";
@@ -834,5 +828,64 @@ app.controller('limpiarCampos', function($rootScope, $scope){
     $scope.guardar = false;
 
   };
+
+  $rootScope.limpiarCamposModalAceite = function(){
+
+    $scope.retiro = 'muestreo';
+    $scope.composito = '';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    $scope.estrato = '';
+    $scope.composito = '';
+    $scope.tipoAceite = '';
+    $scope.fabricante = '';
+
+  };
+
+  $rootScope.limpiarModalGranos = function(){
+
+    $scope.retiro = 'muestreo';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+    $scope.materiaPrima = '';
+    $scope.trader = '';
+    $scope.temperatura = '';
+    $scope.seleccionAlmacenaje = '';
+
+  };
+
+  $rootScope.limpiarModalMuestreo = function(){
+
+    $scope.codigo = '';
+    $scope.retiro = 'muestreo';
+    $scope.tipoMuestra = '';
+    $scope.traders = '';
+    $scope.pais = '';
+    $scope.bodega = '';
+    $scope.encargadoBodega = '';
+    $scope.procedencia = '';
+    $scope.toneladas = '';
+
+  };
+
+
+    $rootScope.limpiarModalAlimentos = function(){
+
+      $scope.codigo = '';
+      $scope.retiro = 'muestreo';
+      $scope.tipo = '';
+      $scope.listaAnalisis = [];
+
+    };
 
 });
