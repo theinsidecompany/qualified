@@ -1,5 +1,9 @@
 app.controller('LoginCtrl', function($scope, $http, $rootScope, $location, $notify){
 
+
+$scope.reset = function(){
+  contTree = 0;
+};
   //Metodo que valida el ingreso del usuario a la pagina
   $scope.validarCampos = function(user, pass){
     var credenciales = {username: user, password: pass};

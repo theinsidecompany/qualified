@@ -10,9 +10,10 @@ var path = require('path');
 var formidable = require('formidable');
 var fs = require('fs');
 var Grid = require('gridfs-stream');
+var Highcharts = require('highcharts');
+var HighchartsAnnotations = require('annotations');
 var conn = mongoose.connection;
 Grid.mongo = mongoose.mongo;
-
 // Configuracion localhost
 mongoose.connect('mongodb://192.168.1.53:27017/Tracefeed');     // Hacemos la conexión a la base de datos de Mongo con nombre "'mongodb://192.168.1.53:27017/Jony'"
 
