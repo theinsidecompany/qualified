@@ -96,9 +96,11 @@
         </div>
       </div>
 
-      <center style="margin-top 2%;"><h4><b>Detalle solicitud</b><h4></center>
+      <center style="margin-top 2%;"><h4><b>Detalle Solicitud de {{solicitud.tipoMuestreo.descripcion}}</b><h4></center>
 
         <div class="container col-xs-12" style="margin-bottom: 1%;">
+
+        <div ng-if="solicitud.tipoMuestreo.id_muestreo == 1">
           <div class="table-condensed col-xs-12 col-md-12" style="margin-top: 1%;">
             <table class="table table-bordered">
               <thead  style="background: #ffcc33;">
@@ -133,6 +135,126 @@
               </tbody>
             </table>
           </div>
+        </div>
+
+
+        <div class="table-condensed col-xs-12 col-md-12" ng-if="solicitud.tipoMuestreo.id_muestreo == 2">
+          <table class="table table-bordered">
+            <thead style="background: #ffcc33;">
+              <th>Codigo</th>
+              <th>Retiro/Muestreo</th>
+              <th>Obserbaciones</th>
+              <th>Analisis</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="item in listaLotesModal">
+                <td>{{item.codigo}}</td>
+                <td>{{item.retiro}}</td>
+                <td>{{item.tipo}}</td>
+                <td>{{item.listaDescripcion}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+        <div class="col-xs-12 col-md-12" ng-if="solicitud.tipoMuestreo.id_muestreo > 2 && solicitud.tipoMuestreo.id_muestreo < 7">
+          <div class="table-condensed col-xs-12 col-md-12">
+            <table class="table table-bordered">
+              <thead style="background: #ffcc33;">
+                <th>Codigo</th>
+                <th>Retiro/Muestreo</th>
+                <th>Observaciones</th>
+                <th>Analisis</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in listaLotesModal">
+                  <td>{{item.codigo}}</td>
+                  <td>{{item.retiro}}</td>
+                  <td>{{item.tipo}}</td>
+                  <td>{{item.listaDescripcion}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+        <div class="col-xs-12 col-md-12" ng-if="solicitud.tipoMuestreo.id_muestreo == 8">
+          <div class="table-condensed col-xs-12 col-md-12">
+            <table class="table table-bordered">
+              <thead style="background: #ffcc33;">
+                <th>Retiro/Muestreo</th>
+                <th>Trader</th>
+                <th>Origen</th>
+                <th>Bodega</th>
+                <th>Encargado Bodega</th>
+                <th>Planta Procedencia</th>
+                <th>Toneladas</th>
+                <th>Materia Prima</th>
+                <th>Proveedor</th>
+                <th>Temperatura</th>
+                <th>Tipo Almacenaje</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in listaLotesModal">
+                  <td>{{item.retiro}}</td>
+                  <td>{{item.traders.nombre}}</td>
+                  <td>{{item.origen.nombrePais}}</td>
+                  <td>{{item.bodega.nombreBodega}}</td>
+                  <td>{{item.encargadoBodega}}</td>
+                  <td>{{item.procedencia}}</td>
+                  <td>{{item.toneladas}}</td>
+                  <td>{{item.materiaPrima.nombreMateriaPrima}}</td>
+                  <td>{{item.trader.nombreTrader}}</td>
+                  <td>{{item.temperatura}}</td>
+                  <td>{{item.seleccionAlmacenaje}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+
+
+
+        <div class="col-xs-12 col-md-12" ng-if="solicitud.tipoMuestreo.id_muestreo == 7">
+          <div class="table-condensed col-xs-12 col-md-12">
+            <table class="table table-bordered">
+              <thead style="background: #ffcc33;">
+                <th>Retiro/Muestreo</th>
+                <th>Composito</th>
+                <th>Estrato</th>
+                <th>Trader</th>
+                <th>Origen</th>
+                <th>Bodega</th>
+                <th>Encargado Bodega</th>
+                <th>Planta Procedencia</th>
+                <th>Toneladas</th>
+                <th>Tipo Aceite</th>
+                <th>Fabricante</th>
+              </thead>
+              <tbody>
+                <tr ng-repeat="item in listaLotesModal">
+                  <td>{{item.retiro}}</td>
+                  <td ng-if=" item.composito == undefined || item.composito == false">N/A</td>
+                  <td ng-if=" item.composito != undefined && item.composito != false">OK</td>
+                  <td ng-if="item.estrato == null">N/A</td>
+                  <td ng-if="item.estrato != null">{{item.descripcionEstrato}}</td>
+                  <td>{{item.traders.nombre}}</td>
+                  <td>{{item.origen.nombrePais}}</td>
+                  <td>{{item.bodega.nombreBodega}}</td>
+                  <td>{{item.encargadoBodega}}</td>
+                  <td>{{item.procedencia}}</td>
+                  <td>{{item.toneladas}}</td>
+                  <td>{{item.tipoAceite}}</td>
+                  <td>{{item.fabricante}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
         </div>
 

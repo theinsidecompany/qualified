@@ -131,6 +131,9 @@ app.controller('inspectorController', ['$scope', '$http' , '$rootScope', '$notif
   //-----------------------------------------------------------------------------------//
 
   $scope.enviaLaboratorio = function(sol, lote, lotes){
+
+    console.log(lotes);
+
     var nroLote = Number(lote);
     var nuevo = {id_solicitud: sol, id_lote: nroLote};
     $http.post('/api/inspectorLote', nuevo).success(function(response){
@@ -1272,9 +1275,6 @@ app.controller('inspectorController', ['$scope', '$http' , '$rootScope', '$notif
 
     $scope.filtroInspector = function(valor, id_solicitud){
 
-      console.log(valor);
-      console.log(id_solicitud);
-
       $http.get('/api/solicitudUnica/' + id_solicitud).success(function(respuesta){
 
         var lotes = respuesta[0].lote;
@@ -1289,7 +1289,7 @@ app.controller('inspectorController', ['$scope', '$http' , '$rootScope', '$notif
           }
         }
 
-        if (Number(valor) === 1) {
+        if (Number(valor) >= 1) {
             $scope.listaLotesModal = listaEnvia;
         }else{
             $scope.listaLotesModal = listaNoEnvia;
@@ -1298,50 +1298,66 @@ app.controller('inspectorController', ['$scope', '$http' , '$rootScope', '$notif
 
     }
 
-    $scope.setearValoresActa = function(fecha, id_solicitud){
+    $scope.setearValoresActa = function(fecha, id_solicitud, valor){
 
-      var fechaAux = new Date(fecha);
-      var fechaAuxMes = fechaAux.getUTCMonth() + 1;
-      var fechaAuxDia = fechaAux.getUTCDate();
-      var fechaAuxAnio = fechaAux.getUTCFullYear();
-      var fechaAux2 = fechaAuxDia + '' + fechaAuxMes + '' + fechaAuxAnio + '';
+      if (valor === 1) {
 
-      var listaEnvia = [];
-      var listaModal = [];
+        $scope.habilitaHarina = true;
+        $scope.habilitaMuestra = false;
+
+        var fechaAux = new Date(fecha);
+        var fechaAuxMes = fechaAux.getUTCMonth() + 1;
+        var fechaAuxDia = fechaAux.getUTCDate();
+        var fechaAuxAnio = fechaAux.getUTCFullYear();
+        var fechaAux2 = fechaAuxDia + '' + fechaAuxMes + '' + fechaAuxAnio + '';
+
+        var listaEnvia = [];
+        var listaModal = [];
 
 
 
-      $http.get('/api/solicitudUnica/' + id_solicitud).success(function(solicitud){
+        $http.get('/api/solicitudUnica/' + id_solicitud).success(function(solicitud){
 
-        var laboratorioDestino = solicitud[0].laboratorio;
-        var lotes = solicitud[0].lote;
+          var laboratorioDestino = solicitud[0].laboratorio;
+          var lotes = solicitud[0].lote;
 
-        for (var i = 0; i < lotes.length; i++) {
-          if(lotes[i].inspectorEnvia === true){
-            listaEnvia.push(lotes[i]);
-          }
-        }
-
-        for (var i = 0; i < listaEnvia.length; i++) {
-
-          var fechaLote = new Date(listaEnvia[i].fechaLab);
-          var fechaLoteMes = fechaLote.getUTCMonth() + 1;
-          var fechaLoteDia = fechaLote.getUTCDate();
-          var fechaLoteAnio = fechaLote.getUTCFullYear();
-          var fechaAux3 = fechaLoteDia + '' + fechaLoteMes + '' + fechaLoteAnio + '';
-          if (fechaAux3 === fechaAux2) {
-            listaModal.push(listaEnvia[i]);
+          for (var i = 0; i < lotes.length; i++) {
+            if(lotes[i].inspectorEnvia === true){
+              listaEnvia.push(lotes[i]);
+            }
           }
 
-        }
+          for (var i = 0; i < listaEnvia.length; i++) {
 
-        $http.get('/api/usuarioId/' + laboratorioDestino).success(function(lab){
-          $scope.destinoAnalisis = lab[0].nombre;
+            var fechaLote = new Date(listaEnvia[i].fechaLab);
+            var fechaLoteMes = fechaLote.getUTCMonth() + 1;
+            var fechaLoteDia = fechaLote.getUTCDate();
+            var fechaLoteAnio = fechaLote.getUTCFullYear();
+            var fechaAux3 = fechaLoteDia + '' + fechaLoteMes + '' + fechaLoteAnio + '';
+            if (fechaAux3 === fechaAux2) {
+              listaModal.push(listaEnvia[i]);
+            }
+
+          }
+
+          $http.get('/api/usuarioId/' + laboratorioDestino).success(function(lab){
+            $scope.destinoAnalisis = lab[0].nombre;
+          });
+
+          $scope.listaImpresion = listaModal;
+
         });
 
-        $scope.listaImpresion = listaModal;
+      }else{
 
-      });
+        $scope.habilitaHarina = false;
+        $scope.habilitaMuestra = true;
+
+        $http.get('/api/solicitudUnica/' + id_solicitud).success(function(solicitud){
+          $scope.solicitud  = solicitud[0];
+        });
+
+      }
 
     }
 

@@ -28,7 +28,7 @@
         <thead style="background: #ffcc33; width: 80%;">
           <th>N°</th>
           <th>Solicitante</th>
-          <th>Responsable</th>
+          <th>Tipo Orden</th>
           <th>Estado</th>
           <th>Fecha Creación</th>
           <th>Fecha de Solicitud de Muestreo</th>
@@ -40,7 +40,7 @@
           <tr ng-repeat="sol in ordenTrabajo | filter: busqueda | orderBy : 'solicitud.id_orden_trabajo'">
             <td>{{sol.solicitud.id_orden_trabajo}}</td>
             <td>{{sol.solicitud.cliente.nombre}}</td>
-            <td>{{sol.solicitud.encargado}}</td>
+            <td>{{sol.solicitud.tipoMuestreo.descripcion}}</td>
             <td>{{sol.estado}}</td>
             <td>{{sol.solicitud.fecha_creacion| date:'dd/MM/yyyy - hh:mm'}}</td>
             <td>{{sol.solicitud.fecha_muestreo| date:'dd/MM/yyyy'}}</td>

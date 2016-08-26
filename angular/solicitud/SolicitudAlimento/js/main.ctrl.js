@@ -221,16 +221,25 @@ app.controller('SolicitudAlimentoController', function ($scope, $notify, $http, 
   //-----------------------------------------------------------------------------------------------------------------//
 
   $scope.agregarMuestreo = function(codigo, retiro, tipo, listaAnalisis){
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
      var listaItems = $scope.listaItems;
      var index = listaItems.length -1;
-     id_item = listaItems[index].id_item + 1;
+     id_lote = listaItems[index].id_lote + 1;
     }
-    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipo, 'listaAnalisis': listaAnalisis};
+
+    var listaDescripcion = '';
+    for (var i = 0; i < listaAnalisis.length; i++) {
+      if (listaDescripcion === '') {
+        listaDescripcion += listaAnalisis[i].tipoAnalisis.descripcion + '(' + listaAnalisis[i].cantidad  +  ')';
+      }else {
+        listaDescripcion += ' - ' + listaAnalisis[i].tipoAnalisis.descripcion + '(' + listaAnalisis[i].cantidad  +  ')';
+      }
+    }
+    var nuevo = {'id_lote': id_lote, 'codigo': codigo, 'retiro': retiro, 'tipo': tipo, 'listaAnalisis': listaAnalisis, 'listaDescripcion': listaDescripcion};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
 

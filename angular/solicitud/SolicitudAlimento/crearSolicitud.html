@@ -63,20 +63,16 @@
           <thead style="background: #ffcc33;">
             <th>Codigo</th>
             <th>Retiro/Muestreo</th>
-            <th>Origen</th>
-            <th>Bodega</th>
-            <th>Encargado Bodega</th>
-            <th>Toneladas</th>
+            <th>Obserbaciones</th>
+            <th>Analisis</th>
             <th>Acción</th>
           </thead>
           <tbody>
             <tr ng-repeat="item in listaItems">
               <td>{{item.codigo}}</td>
               <td>{{item.retiro}}</td>
-              <td>{{item.origen.nombrePais}}</td>
-              <td>{{item.bodega.nombreBodega}}</td>
-              <td>{{item.encargadoBodega}}</td>
-              <td>{{item.toneladas}}</td>
+              <td>{{item.tipo}}</td>
+              <td>{{item.listaDescripcion}}</td>
               <td>
                 <i class="fa fa-remove" ng-click="eliminar($index, listaItems)"></i>
               </td>

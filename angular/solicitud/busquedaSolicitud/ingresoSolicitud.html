@@ -34,6 +34,7 @@
           <thead style="background: #ffcc33; width: 80%;">
             <th>N°</th>
             <th>Estado</th>
+            <th>Tipo Solicitud</th>
             <th>Fecha Creación</th>
             <th>Fecha de Solicitud de Muestreo</th>
             <th>Fecha de Planificación</th>
@@ -43,6 +44,7 @@
             <tr ng-repeat="sol in solicitudes | filter: busqueda | filter: filtroEstado | filter: filtroProceso | orderBy : 'id_solicitud_cliente'">
               <td>{{sol.id_solicitud_cliente}}</td>
               <td>{{sol.estado}}</td>
+              <td>{{sol.tipoMuestreo.descripcion}}</td>
               <td>{{sol.fecha_creacion| date:'dd/MM/yyyy - hh:mm'}}</td>
               <td>{{sol.fecha_muestreo| date:'dd/MM/yyyy'}}</td>
               <td ng-if="sol.fecha_planificacion == null">No asignada</td>

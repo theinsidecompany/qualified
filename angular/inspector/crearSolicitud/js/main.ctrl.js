@@ -152,17 +152,17 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
 
 
   $scope.agregarMuestreo = function(codigo, retiro, tipoMuestra, traders, pais, bodega, encargadoBodega, procedencia, toneladas, listaTipoAnalisis){
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
       var listaItems = $scope.listaItems;
       var index = listaItems.length -1;
-      id_item = listaItems[index].id_item + 1;
+      id_lote = listaItems[index].id_lote + 1;
     }
 
-    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
+    var nuevo = {'id_lote': id_lote, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'listaAnalisis': listaTipoAnalisis};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
     for (var i = 0; i < listaTipoAnalisis.length; i++) {
@@ -173,31 +173,31 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
   }
 
   $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
       var listaItems = $scope.listaItems;
       var index = listaItems.length - 1;
-      id_item = listaItems[index].id_item + 1;
+      id_lote = listaItems[index].id_lote + 1;
     }
 
-    var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
+    var nuevo = {'id_lote': id_lote, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
     $rootScope.limpiarModalGranos();
   }
 
   $scope.agregarAceite = function(retiro, composito, traders, pais, bodega, encargadoBodega, procedencia, toneladas, tipoAceite, fabricante){
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
       var listaItems = $scope.listaItems;
       var index = listaItems.length - 1;
-      id_item = listaItems[index].id_item + 1;
+      id_lote = listaItems[index].id_lote + 1;
     }
 
     if (composito) {
@@ -209,7 +209,7 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
       var nuevoEstrato = [{'estrato': "Superior", 'seleccion': $scope.valorSuperior}, {'estrato': "Medio", 'seleccion': $scope.valorMedio}, {'estrato': "Inferior", 'seleccion': $scope.valorInferior}];
     }
 
-    var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+    var nuevo = {'id_lote': id_lote, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
     $rootScope.limpiarCamposModalAceite();
@@ -218,16 +218,16 @@ app.controller('crearSolicitudInspectorController',function ($scope, $http ,$roo
 
 
   $scope.agregarAlimento = function(codigo, retiro, tipo, listaAnalisis){
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
      var listaItems = $scope.listaItems;
      var index = listaItems.length -1;
-     id_item = listaItems[index].id_item + 1;
+     id_lote = listaItems[index].id_lote + 1;
     }
-    var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipo, 'listaAnalisis': listaAnalisis};
+    var nuevo = {'id_lote': id_lote, 'codigo': codigo, 'retiro': retiro, 'tipo': tipo, 'listaAnalisis': listaAnalisis};
     listaItems.push(nuevo);
     $scope.listaItems = listaItems;
 

@@ -23,6 +23,7 @@
       <thead style="background: #ffcc33; width: 80%;">
         <th>N°</th>
         <th>Solicitante</th>
+        <th>Tipo Solicitud</th>
         <th>Estado</th>
         <th>Fecha Creación</th>
         <th>Fecha de Solicitud de Muestreo</th>
@@ -33,6 +34,7 @@
         <tr ng-repeat="sol in solicitudes | filter: busqueda | filter: filtroProceso | orderBy : 'solicitud.id_solicitud'">
           <td>{{sol.solicitud.id_solicitud}}</td>
           <td>{{sol.solicitud.cliente.nombre}}</td>
+          <td>{{sol.solicitud.tipoMuestreo.descripcion}}</td>
           <td>{{sol.estado}}</td>
           <td>{{sol.solicitud.fecha_creacion| date:'dd/MM/yyyy - hh:mm'}}</td>
           <td>{{sol.solicitud.fecha_muestreo| date:'dd/MM/yyyy'}}</td>

@@ -180,14 +180,14 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
 
     }else{
 
-      var id_item;
+      var id_lote;
       if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
         var listaItems = [];
-        id_item = 1;
+        id_lote = 1;
       }else{
         var listaItems = $scope.listaItems;
         var index = listaItems.length -1;
-        id_item = listaItems[index].id_item + 1;
+        id_lote = listaItems[index].id_lote + 1;
       }
 
       var listaDescripcion = '';
@@ -200,7 +200,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
         }
       }
 
-      var nuevo = {'id_item': id_item, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'listaAnalisis': listaTipoAnalisis, 'listaDescripcion': listaDescripcion};
+      var nuevo = {'id_lote': id_lote, 'codigo': codigo, 'retiro': retiro, 'tipo': tipoMuestra, 'listaAnalisis': listaTipoAnalisis, 'listaDescripcion': listaDescripcion};
       listaItems.push(nuevo);
       $scope.listaItems = listaItems;
 
@@ -214,17 +214,17 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
   }
 
   $scope.agregarGranos = function( retiro, traders, pais, bodega, encargadoBodega, procedencia, toneladas, materiaPrima, trader, temperatura, seleccionAlmacenaje){
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
       var listaItems = $scope.listaItems;
       var index = listaItems.length - 1;
-      id_item = listaItems[index].id_item + 1;
+      id_lote = listaItems[index].id_lote + 1;
     }
 
-    var nuevo = {'id_item': id_item, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
+    var nuevo = {'id_lote': id_lote, 'retiro': retiro, 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'materiaPrima': materiaPrima, 'trader': trader, 'temperatura': temperatura, 'seleccionAlmacenaje': seleccionAlmacenaje};
     listaItems.push(nuevo);
 
     $scope.listaItems = listaItems;
@@ -237,19 +237,19 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
 
 
 
-    var id_item;
+    var id_lote;
     if ($scope.listaItems === undefined || $scope.listaItems[0] === undefined) {
       var listaItems = [];
-      id_item = 1;
+      id_lote = 1;
     }else{
       var listaItems = $scope.listaItems;
       var index = listaItems.length - 1;
-      id_item = listaItems[index].id_item + 1;
+      id_lote = listaItems[index].id_lote + 1;
     }
 
     if (composito) {
       estrato = null;
-      var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': estrato, 'descripcionEstrato': stringEstrato , 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+      var nuevo = {'id_lote': id_lote, 'retiro': retiro, 'composito': composito, 'estrato': estrato, 'descripcionEstrato': stringEstrato , 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
       listaItems.push(nuevo);
       $scope.listaItems = listaItems;
       $rootScope.mostrarTablas(7);
@@ -273,7 +273,7 @@ app.controller('muestreoController', function ($scope, $notify, $http, $rootScop
             stringEstrato += ' - ' + nuevoEstrato[i].estrato;
           }
         }
-        var nuevo = {'id_item': id_item, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'descripcionEstrato': stringEstrato , 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
+        var nuevo = {'id_lote': id_lote, 'retiro': retiro, 'composito': composito, 'estrato': nuevoEstrato, 'descripcionEstrato': stringEstrato , 'traders': traders, 'origen': pais, 'bodega': bodega, 'encargadoBodega': encargadoBodega, 'procedencia': procedencia, 'toneladas': toneladas, 'tipoAceite': tipoAceite, 'fabricante': fabricante};
         listaItems.push(nuevo);
         $scope.listaItems = listaItems;
         $rootScope.mostrarTablas(7);
