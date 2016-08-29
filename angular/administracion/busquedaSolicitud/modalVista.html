@@ -39,7 +39,7 @@
 
       </div>
 
-      <div class="container col-xs-12" ng-if="habilitar" style="margin-bottom: 2%;">
+      <!-- <div class="container col-xs-12" ng-if="habilitar" style="margin-bottom: 2%;">
         <div class="col-md-12" style="margin-bottom: 1%;">
 
           <span class="col-md-1"><strong>Materia Prima</strong></span>
@@ -85,7 +85,7 @@
           <span class="col-md-2"></span>
           <button class="btn btn-danger col-md-3" ng-click="habilitarEdicion()" uib-popover="Cancelar" popover-trigger="mouseenter"><i class="fa fa-arrow-right"></i></button>
         </div>
-      </div>
+      </div> -->
 
       <center style="margin-top 2%;" ng-if="modalSolicitud.proceso[0].id_proceso < 3 "><h4><b>Detalle Solicitud</b></h4></center>
       <center style="margin-top 2%;" ng-if="modalSolicitud.proceso[0].id_proceso >=  3"><h4><b>Detalle Orden de Trabajo</b></h4></center>
@@ -124,7 +124,7 @@
                     <td ng-if="item.observaciones == true"><center><button class="btn btn-danger"  ui-turn-on="modalObservacion" ng-click="enviarObservacionModal(modalSolicitud, item.id_lote)" uib-popover="Observacion" popover-trigger="mouseenter"><i class="fa fa-comment"></i></button></center></td>
                     <td ng-if="item.observaciones == undefined"><center><button class="btn btn-warning"  ui-turn-on="modalObservacion" ng-click="enviarObservacionModal(modalSolicitud, item.id_lote)" uib-popover="Observacion" popover-trigger="mouseenter"><i class="fa fa-comment"></i></button></center></td>
                     <td ng-if="modalSolicitud.proceso[0].id_proceso < 8">
-                      <button class="btn btn-info col-md-6" ng-click="setearValoresMod(item, modalFechaMuestreo, modalSolicitud)" uib-popover="Modificar" popover-trigger="mouseenter"><i class="fa fa-edit"></i></button>
+                      <button class="btn btn-info col-md-6" ui-turn-on="modalActualizarLote" ng-click="setearValoresMod(item, modalSolicitud)" uib-popover="Modificar" popover-trigger="mouseenter"><i class="fa fa-edit"></i></button>
                       <button class="btn btn-danger col-md-6" ng-click="eliminarLoteSolicitud(item.id_lote, modalSol, listaLotesModal)" uib-popover="Eliminar" popover-trigger="mouseenter"><i class="fa fa-remove"></i></button>
                     </td>
                   </tr>

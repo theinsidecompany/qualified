@@ -639,25 +639,95 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
 
   // Metodo que habilita la columna de edicion de un Lote.
   //--------------------------------------------------------------------//
-  $scope.setearValoresMod = function(lote, fecha, solicitud){
-    $rootScope.habilitarEdicion();
-    listaTraders();
-    listarMateriaPrima();
-    listarBodegas();
-    listarPaises();
-    listarMuestreo();
-    $scope.materiaPrima = lote.materiaPrima.id_materiaPrima;
-    $scope.pais = lote.paisTrader.nombrePais;
-    $scope.trader = lote.trader.id_trader;
-    $scope.modalLote = lote.lote;
-    $scope.modalBulto = lote.bultos;
-    $scope.modalCantidad = lote.cantidad;
-    $scope.modalContenedor = lote.contenedor;
-    $scope.bodega = lote.bodega.id_bodega;
-    $scope.id_lote = lote.id_lote;
-    $scope.muestreo = lote.tipoMuestreo.id_tipoMuestreo;
-    fecha_muestreo = new Date(fecha);
-    $scope.fecha_muestreo_mod = fecha_muestreo;
+  $scope.setearValoresMod = function(lote, solicitud){
+
+    var id_materia = 1;
+        $http.get('/api/materiaPrima/' + id_materia).success(function(materia) {
+
+            for (var i = 0; i < materia.length; i++) {
+                var id_materiaPrima = materia[i].id_materiaPrima + 1;
+            }
+
+            if (lote.materiaPrima.id_materia === undefined) {
+                var nuevoMateria = {
+                    'id_materia': 1,
+                    'nombreMateriaPrima': lote.materiaPrima.nombreMateriaPrima,
+                    'id_materiaPrima': id_materiaPrima
+                };
+                materia.push(nuevoMateria);
+            } else {
+                var nuevoMateria = {
+                    'id_materia': lote.materiaPrima.id_materia,
+                    'nombreMateriaPrima': lote.materiaPrima.nombreMateriaPrima,
+                    'id_materiaPrima': lote.materiaPrima.id_materiaPrima
+                };
+            }
+
+            $scope.listarMateriaPrima = materia;
+            $scope.materiaPrima = nuevoMateria.nombreMateriaPrima;
+
+        });
+
+
+        $http.get('/api/trader').success(function(trader) {
+
+            for (var i = 0; i < trader.length; i++) {
+                var id_trader = trader[i].id_trader + 1;
+            }
+
+            if (lote.trader.id_trader === undefined) {
+                var nuevoTrader = {
+                    'id_trader': id_trader,
+                    'nombreTrader': lote.trader.nombreTrader
+                };
+                trader.push(nuevoTrader);
+            } else {
+                var nuevoTrader = {
+                    'id_trader': lote.trader.id_trader,
+                    'nombreTrader': lote.trader.nombreTrader
+                };
+            }
+
+
+            $scope.listaTraders = trader;
+            $scope.trader = nuevoTrader.nombreTrader;
+
+        });
+
+        $http.get('/api/traerBodega').success(function(bodega) {
+
+            for (var i = 0; i < bodega.length; i++) {
+                var id_bodega = bodega[i].id_bodega + 1;
+            }
+
+            if (lote.bodega.id_bodega === undefined) {
+                var nuevaBodega = {
+                    'id_bodega': id_bodega,
+                    'nombreBodega': lote.bodega.nombreBodega
+                };
+                bodega.push(nuevaBodega);
+            } else {
+                var nuevaBodega = {
+                    'id_bodega': lote.bodega.id_bodega,
+                    'nombreBodega': lote.bodega.nombreBodega
+                };
+            }
+
+            $scope.listarBodegas = bodega;
+            $scope.bodega = nuevaBodega.nombreBodega;
+
+        });
+
+        $scope.modalLote = lote.lote;
+        $scope.modalBulto = lote.bultos;
+        $scope.modalCantidad = lote.cantidad;
+        $scope.modalContenedor = lote.contenedor;
+        $scope.modalProcedencia = lote.procedencia;
+        $scope.pais = lote.paisTrader.nombrePais;
+        $scope.retiro = lote.retiro;
+        $scope.solicitud = solicitud;
+        $scope.id_lote = lote.id_lote;
+
   };
   //--------------------------------------------------------------------//
 
@@ -676,48 +746,66 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
 
   //Este metodo Elimina un indice en el arreglo de lotes el cual se guardara con la soliciud.
   //-----------------------------------------------------------------------------------------------------------------//
-  $scope.modificarLote = function(id_lote, materiaPrima, trader, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, id_solicitud, pais, muestreo, modalSol){
+  $scope.modificarLote = function(retiro, materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, modalProcedencia, modalSol, id_lote) {
 
-    var listaNueva = [];
-    var id_solicitud = modalSol.id_solicitud;
+            var id_solicitud = modalSol.id_solicitud;
+            var listaNueva = [];
 
-    $http.get('/api/materiaPrima' + materiaPrima).success(function(materia){
+            var lote = {
+                bodega: {
+                    nombreBodega: bodega
+                },
+                id_lote: id_lote,
+                materiaPrima: {
+                    nombreMateriaPrima: materiaPrima
+                },
+                trader: {
+                    nombreTrader: trader
+                },
+                paisTrader: {
+                    nombrePais: pais
+                },
+                lote: modalLote,
+                bultos: modalBulto,
+                cantidad: modalCantidad,
+                contenedor: modalContenedor,
+                tipoMuestreo: {
+                    'id_tipoMuestreo': 1,
+                    'descripcion': "Harina"
+                },
+                retiro: retiro,
+                procedencia: modalProcedencia,
+                estadoLab: 'vacio'
+            };
 
-      var lote = {bodega: {nombreBodega: bodega}, id_lote: id_lote, materiaPrima: {nombreMateriaPrima: materia}, trader: {nombreTrader: trader}, paisTrader: {nombrePais: pais}, lote: modalLote, bultos: modalBulto, cantidad: modalCantidad, contenedor: modalContenedor, tipoMuestreo:{tipoMuestreo: muestreo}};
+
+            for (var i = 0; i < modalSol.lote.length; i++) {
+                if (id_lote !== modalSol.lote[i].id_lote) {
+                    listaNueva.push(modalSol.lote[i]);
+                }
+            }
+
+            listaNueva.push(lote);
+
+            var post = {
+                'lotes': listaNueva,
+                'id_solicitud': id_solicitud
+            };
+
+            $http.put('/api/modificarLotes/' + id_solicitud, post).success(function(lotes) {
+                $scope.listaLotesModal = lotes;
+            });
 
 
-      for (var i = 0; i < modalSol.lote.length; i++) {
-        if (id_lote !== modalSol.lote[i].id_lote) {
-          listaNueva.push(modalSol.lote[i]);
+            $rootScope.habilitar = false;
+            $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+            $notify.setPosition('bottom-left');
+            $notify.success('Notificacion', 'Item Modificado');
+            //
+            $timeout(function() {
+                listarSolicitudes();
+            }, 200);
         }
-      }
-
-      listaNueva.push(lote);
-
-      var post = {lotes: listaNueva, id_solicitud: modalSol.id_solicitud};
-
-      $http.put('/api/modificarLotes/' + id_solicitud, post).success(function(lotes){
-        $scope.listaLotesModal = lotes;
-      });
-    });
-
-    // var aviso = {usuario: $rootScope.loggedUser.id_usuario, name: 'Solicitud', id: modalSol.id_solicitud_cliente, online: 'SolModificada', status: 'fa-file ', id_solicitud: modalSol.id_solicitud};
-    // $http.post('/api/avisos', aviso).success(function(respu){
-    //   traerAvisosFiltro();
-    // })
-    // var aviso2 = {usuario: 1, name: 'Solicitud', id: modalSol.id_solicitud, online: 'SolModificada', status: 'fa-file ', id_solicitud: modalSol.id_solicitud};
-    // $http.post('/api/avisos', aviso2).success(function(respu){
-    // })
-    //
-    $rootScope.habilitar = false;
-    $notify.setTime(3).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
-    $notify.setPosition('bottom-left');
-    $notify.success('Notificacion', 'Item Modificado');
-    //
-    $timeout(function() {
-      listarSolicitudesOt();
-    }, 200);
-  }
   //-----------------------------------------------------------------------------------------------------------------//
 
   // Metodo que trae los Traders(Proveedores) filtrados por el id de materia prima
