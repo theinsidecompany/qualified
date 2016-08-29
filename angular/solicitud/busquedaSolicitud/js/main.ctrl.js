@@ -432,6 +432,29 @@ app.controller('busquedaClienteController', function($scope, $notify, $http, $ro
             $notify.error('Notificacion', 'Item Romovido');
         }
     };
+
+
+    $scope.eliminarLoteAceite = function(id_lote, id_sol, listaLote) {
+
+        if (listaLote.length === 1) {
+            $notify.setTime(4).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+            $notify.setPosition('bottom-left');
+            $notify.info('Notificacion', 'La solicitud no puede quedar sin items');
+        } else {
+            var usuarioLote = {
+                id_solicitud: id_sol,
+                id_lote: id_lote,
+                id_usuario: $rootScope.loggedUser.id_usuario
+            };
+            $http.post('/api/lote', usuarioLote).success(function(response) {
+                $scope.listaLotesModal = response[0].lote;
+            });
+            traerSolicitudesFiltro();
+            $notify.setTime(4).setPosition('bottom-right').showCloseButton(true).showProgressBar(true);
+            $notify.setPosition('bottom-left');
+            $notify.error('Notificacion', 'Item Romovido');
+        }
+    };
     //--------------------------------------------------------------------//
 
     $scope.modificarFechaMuestreo = function(fecha, id_solicitud) {
@@ -629,6 +652,28 @@ app.controller('busquedaClienteController', function($scope, $notify, $http, $ro
         $scope.modalProcedencia = lote.procedencia;
         $scope.pais = lote.paisTrader.nombrePais;
         $scope.retiro = lote.retiro;
+        $scope.solicitud = solicitud;
+        $scope.id_lote = lote.id_lote;
+
+    };
+
+
+
+    $scope.setearValoresModAceite = function(lote, solicitud) {
+
+        console.log(lote);
+        $scope.composito = lote.composito;
+        $scope.traders = lote.traders.username;
+        $scope.pais = lote.origen.nombrePais;
+        $scope.bodega = lote.bodega.nombreBodega;
+        $scope.colorSuperior = "warning";
+        $scope.colorMedio = "warning";
+        $scope.colorInferior = "warning";
+        $scope.valorSuperior = false;
+        $scope.valorMedio = false;
+        $scope.valorInferior = false;
+        $scope.mostrarAceite = true;
+        $scope.retiroAnimal = lote.retiro;
         $scope.solicitud = solicitud;
         $scope.id_lote = lote.id_lote;
 
@@ -864,5 +909,104 @@ app.controller('modalActualizacionHarina', function($scope, $http, $rootScope) {
             $scope.listarPaises = response;
         });
     };
+
+});
+
+app.controller('modalMuestreo', function($scope, $http, $rootScope) {
+
+    listarSolTrader();
+    listarBodegas();
+    listarPaises();
+    cargarLista();
+    listarMateriaPrima();
+    listarTraders();
+
+    function listarSolTrader() {
+        $http.get('/api/traders').success(function(response) {
+            $scope.listaTodoTraders = response;
+        });
+    }
+
+    function listarBodegas() {
+        $http.get('/api/traerBodega').success(function(response) {
+            $scope.listarBodegas = response;
+        });
+    };
+
+    function listarPaises() {
+        $http.get('/api/pais').success(function(response) {
+            $scope.listarPaises = response;
+        });
+    };
+
+    function cargarLista() {
+        var id_tipoMuestreo = $rootScope.idTipo;
+        $http.get('/api/listarTipoAnalisis/' + id_tipoMuestreo).success(function(response) {
+            $scope.listaTipoAnalisis = response;
+        });
+    };
+
+    function listarMateriaPrima() {
+        var id_materia = 2;
+        $http.get('/api/materiaPrima/' + id_materia).success(function(response) {
+            $scope.listarMateriaPrima = response;
+        });
+    }
+
+    function listarTraders() {
+        $http.get('/api/trader').success(function(response) {
+            $scope.listaTraders = response;
+        });
+    }
+
+    validaTrader();
+
+    function validaTrader() {
+        if ($rootScope.loggedUser.trader === true) {
+            $scope.habilitaTrader = false;
+        } else {
+            $scope.habilitaTrader = true;
+        }
+    }
+
+    $scope.compositoSeleccion = function() {
+        $scope.colorSuperior = "warning";
+        $scope.colorMedio = "warning";
+        $scope.colorInferior = "warning";
+        $scope.valorSuperior = false;
+        $scope.valorMedio = false;
+        $scope.valorInferior = false;
+    }
+
+    $scope.seleccionarSuperior = function() {
+
+        if ($scope.colorSuperior === "success") {
+            $scope.colorSuperior = "warning";
+            $scope.valorSuperior = false;
+        } else {
+            $scope.colorSuperior = "success";
+            $scope.valorSuperior = true;
+        }
+    }
+
+    $scope.seleccionarMedio = function() {
+        if ($scope.colorMedio === "success") {
+            $scope.colorMedio = "warning";
+            $scope.valorMedio = false;
+        } else {
+            $scope.colorMedio = "success"
+            $scope.valorMedio = true;
+        }
+    }
+
+    $scope.seleccionarInferior = function() {
+        if ($scope.colorInferior === "success") {
+            $scope.colorInferior = "warning";
+            $scope.valorInferior = false;
+        } else {
+            $scope.colorInferior = "success"
+            $scope.valorInferior = true;
+        }
+    }
 
 });

@@ -239,6 +239,7 @@
                                             <th>Toneladas</th>
                                             <th>Tipo Aceite</th>
                                             <th>Fabricante</th>
+                                            <th>Accion</th>
                                         </thead>
                                         <tbody>
                                             <tr ng-repeat="item in listaLotesModal">
@@ -255,6 +256,10 @@
                                                 <td>{{item.toneladas}}</td>
                                                 <td>{{item.tipoAceite}}</td>
                                                 <td>{{item.fabricante}}</td>
+                                                <td>
+                                                    <button class="btn btn-info" ng-click="setearValoresModAceite(item, solicitud)" ui-turn-on="ActualizarModalMuestreo" uib-popover="Modificar" popover-trigger="mouseenter"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-danger" ng-click="eliminarLoteAceite(item.id_lote, modalSol, listaLotesModal)" uib-popover="Eliminar" popover-trigger="mouseenter"><i class="fa fa-remove"></i></button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
