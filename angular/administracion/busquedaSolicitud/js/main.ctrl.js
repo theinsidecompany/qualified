@@ -639,9 +639,9 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
 
   // Metodo que habilita la columna de edicion de un Lote.
   //--------------------------------------------------------------------//
-  $scope.setearValoresMod = function(lote, solicitud){
+  $scope.setearValoresMod = function(lote, solicitud) {
 
-    var id_materia = 1;
+        var id_materia = 1;
         $http.get('/api/materiaPrima/' + id_materia).success(function(materia) {
 
             for (var i = 0; i < materia.length; i++) {
@@ -718,6 +718,24 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
 
         });
 
+        $http.get('/api/traders').success(function(traders) {
+
+            if (lote.traders.id_bodega === undefined) {
+                var nuevoTraders = {
+                    'nombre': lote.traders.nombre
+                };
+                traders.push(nuevoTraders);
+            } else {
+                var nuevoTraders = {
+                    'nombre': lote.traders.nombre
+                };
+            }
+
+            $scope.listaTodoTraders = traders;
+            $scope.traders = nuevoTraders.nombre;
+
+        });
+
         $scope.modalLote = lote.lote;
         $scope.modalBulto = lote.bultos;
         $scope.modalCantidad = lote.cantidad;
@@ -728,7 +746,7 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
         $scope.solicitud = solicitud;
         $scope.id_lote = lote.id_lote;
 
-  };
+    };
   //--------------------------------------------------------------------//
 
   // Metodo que habilita la edicion
@@ -746,7 +764,7 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
 
   //Este metodo Elimina un indice en el arreglo de lotes el cual se guardara con la soliciud.
   //-----------------------------------------------------------------------------------------------------------------//
-  $scope.modificarLote = function(retiro, materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, modalProcedencia, modalSol, id_lote) {
+  $scope.modificarLote = function(retiro, traders, materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, modalProcedencia, modalSol, id_lote) {
 
             var id_solicitud = modalSol.id_solicitud;
             var listaNueva = [];
@@ -775,7 +793,11 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
                 },
                 retiro: retiro,
                 procedencia: modalProcedencia,
-                estadoLab: 'vacio'
+                estadoLab: 'vacio',
+                traders: {
+                    nombre: traders
+                }
+
             };
 
 
@@ -802,9 +824,18 @@ app.controller('busquedaController', ['$scope', '$rootScope', '$http' ,'$notify'
             $notify.setPosition('bottom-left');
             $notify.success('Notificacion', 'Item Modificado');
             //
-            $timeout(function() {
-                listarSolicitudes();
-            }, 200);
+
+            if (modalSol.id_orden_trabajo === undefined) {
+              $timeout(function() {
+                  listarSolicitudes();
+              }, 200);
+            }else{
+              $timeout(function() {
+                listarSolicitudesOt();
+              }, 200);
+            }
+
+
         }
   //-----------------------------------------------------------------------------------------------------------------//
 

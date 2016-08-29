@@ -19,7 +19,7 @@
           </div>
           <div class="col-md-12" ng-show="habilitaTrader" style="margin-bottom: 1%;">
             <label class="col-md-5">Trader</label>
-            <select class="form-control col-md-7" ng-model="traders" ng-options="opt as opt.nombre for opt in listaTodoTraders">
+            <select class="form-control col-md-7" ng-model="traders" ng-options="opt.nombre as opt.nombre for opt in listaTodoTraders">
               <option value="" disabled selected style="display: none;">Seleccione Trader</option>
             </select>
           </div>
@@ -79,7 +79,7 @@
 
           <div class="col-md-12" style=" margin-top: 3%;">
             <button class="btn btn-primary col-md-4" style="margin-left: 33%;"
-            ng-click="modificarLote(retiro, materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, modalProcedencia, solicitud, id_lote)"
+            ng-click="modificarLote(retiro, traders, materiaPrima, trader, pais, modalLote, modalBulto, modalCantidad, modalContenedor, bodega, modalProcedencia, solicitud, id_lote)"
             ng-disabled="!(!!materiaPrima && !!trader && !!pais && !!modalLote && !!modalBulto && !!modalCantidad && !!modalContenedor && !!bodega && !!modalProcedencia)"
             >Actualizar Item</button>
           </div>
