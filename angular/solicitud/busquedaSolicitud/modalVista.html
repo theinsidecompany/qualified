@@ -45,7 +45,7 @@
                     </div>
                 </div>
 
-                <div class="container col-xs-12" ng-if="habilitar" ng-controller="crearSolicitudController" style="margin-bottom: 2%;">
+                <!-- <div class="container col-xs-12" ng-if="habilitar" ng-controller="crearSolicitudController" style="margin-bottom: 2%;">
 
                     <div class="col-md-12" style="margin-bottom: 1%;">
 
@@ -92,7 +92,7 @@
                         <span class="col-md-2"></span>
                         <button class="btn btn-danger col-md-3" ng-click="habilitarEdicion()" uib-popover="Cancelar" popover-trigger="mouseenter"><i class="fa fa-arrow-right"></i></button>
                     </div>
-                </div>
+                </div> -->
 
                 <center style="margin-top 2%;">
                     <h4><b>Detalle Solicitud de {{solicitud.tipoMuestreo.descripcion}}</b></h4></center>
@@ -133,7 +133,7 @@
                                                     <center><button class="btn btn-warning" ui-turn-on="modalObservacion" ng-click="enviarObservacionModal(solicitud, item.id_lote)" uib-popover="Observacion" popover-trigger="mouseenter"><i class="fa fa-comment"></i></button></center>
                                                 </td>
                                                 <td ng-if="habilitado == 1 || habilitado == 2">
-                                                    <button class="btn btn-info col-md-6" ng-click="setearValoresMod(item, modalFechaMuestreo)" uib-popover="Modificar" popover-trigger="mouseenter"><i class="fa fa-edit"></i></button>
+                                                    <button class="btn btn-info col-md-6" ng-click="setearValoresMod(item, solicitud)" ui-turn-on="modalActualizarLote" uib-popover="Modificar" popover-trigger="mouseenter"><i class="fa fa-edit"></i></button>
                                                     <button class="btn btn-danger col-md-6" ng-click="eliminarLoteSolicitud(item.id_lote, modalSol, listaLotesModal)" uib-popover="Eliminar" popover-trigger="mouseenter"><i class="fa fa-remove"></i></button>
                                                 </td>
                                             </tr>
