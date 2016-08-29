@@ -1,4 +1,4 @@
-<div class="scrollable modal col-lg-8 center-block" ui-if='modalVistaSDAdmin' ui-state='modalVistaSDAdmin'>
+<div class="scrollable modal col-lg-8 center-block" ui-if="modalVistaSDAdmin" ui-state="modalVistaSDAdmin">
   <div class="modal-backdrop in"></div>
   <div class="scrollable-content modal-dialog">
     <div class="modal-content">
@@ -38,7 +38,10 @@
 
       </div>
 
-      <center style="margin-top 2%;"><h4><b>Detalle solicitud</b><h4></center>
+      <center style="margin-top 2%;"><h4><b>Detalle solicitud</b></h4></center>
+
+      <div class="well window">
+        <div class="scrollable-content section wrapper" ui-scroll-bottom="loadMore()">
 
         <div class="container col-xs-12" style="margin-bottom: 1%;">
           <div class="table-condensed col-xs-12 col-md-12" style="margin-top: 1%;">
@@ -84,6 +87,9 @@
           </div>
 
         </div>
+
+      </div>
+    </div>
 
         <div class="modal-footer">
         </div>

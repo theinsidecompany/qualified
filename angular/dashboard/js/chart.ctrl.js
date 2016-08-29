@@ -454,129 +454,132 @@ app.controller('chartTree', function($scope, $rootScope, $http, $location) {
 
 
     //--------------------------------------------------------------------------------------------------------------------------------//
+
+    var data = [{
+        "name": "Solicitud Iniciada",
+        "id": "0",
+        "color": "#058DC7"
+    }, {
+        "name": "Solicitud 1",
+        "id": "0_0",
+        "parent": "0",
+        "value": 13
+    }, {
+        "name": "Solicitud 5",
+        "id": "0_1",
+        "parent": "0",
+        "value": 8
+    }, {
+        "name": "Solicitud 15",
+        "id": "0_2",
+        "parent": "0",
+        "value": 33
+    }, {
+        "name": "Solicitud 3",
+        "id": "0_3",
+        "parent": "0",
+        "value": 10
+    }, {
+        "name": "Inspección Asignada",
+        "id": "1",
+        "color": "#24ED5D"
+    }, {
+        "name": "Solicitud 34",
+        "id": "0_4",
+        "parent": "1",
+        "value": 22
+    }, {
+        "name": "Solicitud 12",
+        "id": "0_5",
+        "parent": "1",
+        "value": 12
+    }, {
+        "name": "Solicitud 18",
+        "id": "0_6",
+        "parent": "1",
+        "value": 10
+    }, {
+        "name": "Solicitud 25",
+        "id": "0_7",
+        "parent": "1",
+        "value": 5
+    }, {
+        "name": "Solicitud 2",
+        "id": "0_8",
+        "parent": "1",
+        "value": 18
+    }, {
+        "name": "Solicitud 4",
+        "id": "0_9",
+        "parent": "1",
+        "value": 30
+    }, {
+        "name": "Laboratorio",
+        "id": "2",
+        "color": "#0EF6D3"
+    }, {
+        "name": "Solicitud 34",
+        "id": "0_10",
+        "parent": "2",
+        "value": 9
+    }, {
+        "name": "Solicitud 12",
+        "id": "0_11",
+        "parent": "2",
+        "value": 6
+    }, {
+        "name": "Solicitud 18",
+        "id": "0_12",
+        "parent": "2",
+        "value": 16
+    }, {
+        "name": "Solicitud 25",
+        "id": "0_13",
+        "parent": "2",
+        "value": 20
+    }, {
+        "name": "Solicitud 2",
+        "id": "0_14",
+        "parent": "2",
+        "value": 18
+    }, {
+        "name": "Inspección Transporte",
+        "id": "3",
+        "color": "#F1C420"
+    }, {
+        "name": "Solicitud 34",
+        "id": "0_15",
+        "parent": "3",
+        "value": 18
+    }, {
+        "name": "Solicitud 12",
+        "id": "0_16",
+        "parent": "3",
+        "value": 29
+    }, {
+        "name": "Solicitud 18",
+        "id": "0_17",
+        "parent": "3",
+        "value": 16
+    }, {
+        "name": "Solicitud 25",
+        "id": "0_18",
+        "parent": "3",
+        "value": 20
+    }, {
+        "name": "Solicitud 2",
+        "id": "0_19",
+        "parent": "3",
+        "value": 18
+    }];
+
     $(function() {
 
         function redirect() {
             window.location = '#/creacionSolicitudHarina';
         }
 
-        var data = [{
-            "name": "Solicitud Iniciada",
-            "id": "0",
-            "color": "#058DC7"
-        }, {
-            "name": "Solicitud 1",
-            "id": "0_0",
-            "parent": "0",
-            "value": 13
-        }, {
-            "name": "Solicitud 5",
-            "id": "0_1",
-            "parent": "0",
-            "value": 8
-        }, {
-            "name": "Solicitud 15",
-            "id": "0_2",
-            "parent": "0",
-            "value": 33
-        }, {
-            "name": "Solicitud 3",
-            "id": "0_3",
-            "parent": "0",
-            "value": 10
-        }, {
-            "name": "Inspección Asignada",
-            "id": "1",
-            "color": "#24ED5D"
-        }, {
-            "name": "Solicitud 34",
-            "id": "0_4",
-            "parent": "1",
-            "value": 22
-        }, {
-            "name": "Solicitud 12",
-            "id": "0_5",
-            "parent": "1",
-            "value": 12
-        }, {
-            "name": "Solicitud 18",
-            "id": "0_6",
-            "parent": "1",
-            "value": 10
-        }, {
-            "name": "Solicitud 25",
-            "id": "0_7",
-            "parent": "1",
-            "value": 5
-        }, {
-            "name": "Solicitud 2",
-            "id": "0_8",
-            "parent": "1",
-            "value": 18
-        }, {
-            "name": "Solicitud 4",
-            "id": "0_9",
-            "parent": "1",
-            "value": 30
-        }, {
-            "name": "Laboratorio",
-            "id": "2",
-            "color": "#0EF6D3"
-        }, {
-            "name": "Solicitud 34",
-            "id": "0_10",
-            "parent": "2",
-            "value": 9
-        }, {
-            "name": "Solicitud 12",
-            "id": "0_11",
-            "parent": "2",
-            "value": 6
-        }, {
-            "name": "Solicitud 18",
-            "id": "0_12",
-            "parent": "2",
-            "value": 16
-        }, {
-            "name": "Solicitud 25",
-            "id": "0_13",
-            "parent": "2",
-            "value": 20
-        }, {
-            "name": "Solicitud 2",
-            "id": "0_14",
-            "parent": "2",
-            "value": 18
-        }, {
-            "name": "Inspección Transporte",
-            "id": "3",
-            "color": "#F1C420"
-        }, {
-            "name": "Solicitud 34",
-            "id": "0_15",
-            "parent": "3",
-            "value": 18
-        }, {
-            "name": "Solicitud 12",
-            "id": "0_16",
-            "parent": "3",
-            "value": 29
-        }, {
-            "name": "Solicitud 18",
-            "id": "0_17",
-            "parent": "3",
-            "value": 16
-        }, {
-            "name": "Solicitud 25",
-            "id": "0_18",
-            "parent": "3",
-            "value": 20
-        }, {
-            "name": "Solicitud 2",
-            "id": "0_19",
-            "parent": "3",
-            "value": 18
-        }];
+
         var chart = new Highcharts.Chart({
             chart: {
                 renderTo: 'container'

@@ -1,30 +1,33 @@
 <div class="scrollable modal col-lg-8 center-block" ui-if='modalVistaSD' ui-state='modalVistaSD'>
-  <div class="modal-backdrop in"></div>
-  <div class="scrollable-content modal-dialog">
-    <div class="modal-content">
-      <div class="container col-xs-12" style="margin-bottom: 2%;">
-        <div class="modal-header">
-          <button class="close" ui-turn-off="modalVistaSD">&times;</button>
-          <label>Solicitud de Despacho {{id_sol}}</label>
-        </div>
+    <div class="modal-backdrop in"></div>
+    <div class="scrollable">"
+        <div class="scrollable-content modal-dialog">
+            <div class="modal-content">
+                <div class="container col-xs-12" style="margin-bottom: 2%;">
+                    <div class="modal-header">
+                        <button class="close" ui-turn-off="modalVistaSD">&times;</button>
+                        <label>Solicitud de Despacho {{id_sol}}</label>
+                    </div>
 
-        <center>
-          <div>
-            <label class="label-warning col-md-12">Solicitante</label>
-            {{cliente}}
-          </div>
-        </center>
+                    <center>
+                        <div>
+                            <label class="label-warning col-md-12">Solicitante</label> {{cliente}}
+                        </div>
+                    </center>
 
-        <div class="col-md-4" style="margin-top: 1%;">
-          <div>
-            <label class="label-warning col-md-12">Fecha Creación:</label>
-            {{fecha | date:'dd/MM/yyyy - hh:mm'}}
-          </div>
-        </div>
+                    <div class="col-md-4" style="margin-top: 1%;">
+                        <div>
+                            <label class="label-warning col-md-12">Fecha Creación:</label> {{fecha | date:'dd/MM/yyyy - hh:mm'}}
+                        </div>
+                    </div>
 
-      </div>
+                </div>
 
-      <center style="margin-top 2%;"><h4><b>Detalle Solicitud Despacho</b><h4></center>
+                <center style="margin-top 2%;">
+                    <h4><b>Detalle Solicitud Despacho</b><h4></center>
+
+        <div class="well window">
+          <div class="scrollable-content section wrapper" ui-scroll-bottom="loadMore()">
 
         <div class="container col-xs-12" style="margin-bottom: 1%;">
           <div class="table-condensed col-xs-12 col-md-12" style="margin-top: 1%;">
@@ -69,8 +72,11 @@
             </table>
           </div>
         </div>
+      </div>
         <div class="modal-footer">
         </div>
       </div>
+      </div>
     </div>
+  </div>
   </div>

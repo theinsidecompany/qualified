@@ -1,5 +1,6 @@
-<div class="scrollable modal col-lg-8 center-block" ui-if='modalVista' ui-state='modalVista'>
+<div class="scrollable modal col-lg-8 center-block" ui-if="modalVista" ui-state="modalVista">
   <div class="modal-backdrop in"></div>
+  <div class="scrollable">
   <div class="scrollable-content modal-dialog">
     <div class="modal-content">
       <div class="container col-xs-12" style="margin-bottom: 3%;">
@@ -41,39 +42,39 @@
       <div class="container col-xs-12" ng-if="habilitar" style="margin-bottom: 2%;">
         <div class="col-md-12" style="margin-bottom: 1%;">
 
-          <span class="col-md-1"><Strong>Materia Prima</Strong></span>
+          <span class="col-md-1"><strong>Materia Prima</strong></span>
           <select class="form-control col-md-2" ng-model="materiaPrima" ng-change="listaTradersFiltroPorId(materiaPrima)" ng-options="opt.id_materiaPrima as opt.nombreMateriaPrima for opt in listarMateriaPrima">
           </select>
 
-          <span class="col-md-1"><Strong>Proveedor</Strong></span>
+          <span class="col-md-1"><strong>Proveedor</strong></span>
           <select class="form-control col-md-2" ng-model="trader" ng-change="listarPais(listaTraders, trader)" ng-options="opt.nombreTrader as opt.nombreTrader for opt in listaTraders">
           </select>
 
-          <span class="col-md-1"><Strong>País</Strong></span>
+          <span class="col-md-1"><strong>País</strong></span>
           <select class="form-control col-md-2" ng-model="pais" ng-disabled="!(!!trader)" ng-options="opt.nombrePais as opt.nombrePais for opt in listarPaises">
             <option value="" disabled selected style="display: none;">Seleccione Origen</option>
           </select>
 
-          <span class="col-md-1"><Strong>Bodega</Strong></span>
+          <span class="col-md-1"><strong>Bodega</strong></span>
           <select class="form-control col-md-2" ng-model="bodega" ng-options="opt.nombreBodega as opt.nombreBodega for opt in listarBodegas">
           </select>
 
         </div>
 
         <div class="col-md-12"  style="margin-bottom: 1%;">
-          <span class="col-md-1"><Strong>Lote</Strong></span>
+          <span class="col-md-1"><strong>Lote</strong></span>
           <input type="text" class="form-control col-md-2"  ng-model="modalLote" placeholder="Lote">
-          <span class="col-md-1"><Strong>Bultos</Strong></span>
+          <span class="col-md-1"><strong>Bultos</strong></span>
           <input type="text" class="form-control col-md-2" onkeypress="return numeros(event)" ng-model="modalBulto" placeholder="Bulto">
-          <span class="col-md-1"><Strong>Cantidad</Strong></span>
+          <span class="col-md-1"><strong>Cantidad</strong></span>
           <input type="text" class="form-control col-md-2" onkeypress="return numeros(event)" ng-model="modalCantidad" placeholder="Cantidad">
-          <span class="col-md-1"><Strong>Contenedor</Strong></span>
+          <span class="col-md-1"><strong>Contenedor</strong></span>
           <input type="text" class="form-control col-md-2" ng-model="modalContenedor" placeholder="Contenedor">
 
         </div>
 
         <span class="col-md-4"></span>
-        <span class="col-md-2"><Strong>Tipo Muestreo</Strong></span>
+        <span class="col-md-2"><strong>Tipo Muestreo</strong></span>
         <select class="form-control col-md-2" ng-model="muestreo" ng-options="opt.tipoMuestreo as opt.tipoMuestreo for opt in listaMuestreo">
         </select>
 
@@ -86,8 +87,11 @@
         </div>
       </div>
 
-      <center style="margin-top 2%;" ng-if="modalSolicitud.proceso[0].id_proceso < 3 "><h4><b>Detalle Solicitud</b><h4></center>
-      <center style="margin-top 2%;" ng-if="modalSolicitud.proceso[0].id_proceso >=  3"><h4><b>Detalle Orden de Trabajo</b><h4></center>
+      <center style="margin-top 2%;" ng-if="modalSolicitud.proceso[0].id_proceso < 3 "><h4><b>Detalle Solicitud</b></h4></center>
+      <center style="margin-top 2%;" ng-if="modalSolicitud.proceso[0].id_proceso >=  3"><h4><b>Detalle Orden de Trabajo</b></h4></center>
+
+      <div class="well window">
+       <div class="scrollable-content section wrapper" ui-scroll-bottom="loadMore()">
 
         <div class="container col-xs-12" style="margin-bottom: 1%;">
           <div ng-if="modalSolicitud.tipoMuestreo.id_muestreo == 1">
@@ -243,11 +247,12 @@
           </div>
 
         </div>
-
+      </div>
+    </div>
         <div class="modal-footer">
 
           <div id="pdfVer" ng-show="false">
-            <embed ng-src="{{content}}" style="width:100%;height:100%;"></embed>
+            <embed ng-src="{{content}}" style="width:100%;height:100%;">
           </div>
 
         </div>
@@ -255,3 +260,4 @@
       </div>
     </div>
   </div>
+</div>
