@@ -265,14 +265,16 @@ app.controller('crearSolicitudController', function ($scope, $notify, $http, $ro
 
       if (lista.length === 0) {
         for (var i = 0; i < respuesta.length; i++) {
-          var nuevo = {bodega: {nombreBodega: respuesta[i].bodega}, id_lote: Number(respuesta[i].nro), materiaPrima: {nombreMateriaPrima: respuesta[i].materiaPrima}, trader: {nombreTrader: respuesta[i].proveedor}, paisTrader: {nombrePais: respuesta[i].origen}, lote: respuesta[i].lote, bultos: respuesta[i].bultos, cantidad: respuesta[i].cantidad, contenedor: respuesta[i].contenedor, tipoMuestreo:{descripcion: respuesta[i].tipoMuestreo}, estadoLab: 'vacio'};
-          lista.push(nuevo);
+          var nuevo = {bodega: {nombreBodega: respuesta[i].bodega}, id_lote: Number(respuesta[i].nro), materiaPrima: {nombreMateriaPrima: respuesta[i].materiaPrima}, trader: {nombreTrader: respuesta[i].proveedor}, paisTrader: {nombrePais: respuesta[i].origen},
+                          lote: respuesta[i].lote, bultos: respuesta[i].bultos, cantidad: respuesta[i].cantidad, contenedor: respuesta[i].contenedor, tipoMuestreo: {'id_tipoMuestreo': 1, 'descripcion': "Harina"}, estadoLab: 'vacio', procedencia: respuesta[i].procedencia, retiro: respuesta[i].retiroMuestreo};
+            lista.push(nuevo);
         }
         $rootScope.listaLotes = lista;
       }else{
         for (var i = 0; i < respuesta.length; i++) {
-          var nuevo = {bodega: {nombreBodega: respuesta[i].bodega}, id_lote: (Number(respuesta[i].nro) + cont), materiaPrima: {nombreMateriaPrima: respuesta[i].materiaPrima}, trader: {nombreTrader: respuesta[i].proveedor}, paisTrader: {nombrePais: respuesta[i].origen}, lote: respuesta[i].lote, bultos: respuesta[i].bultos, cantidad: respuesta[i].cantidad, contenedor: respuesta[i].contenedor, tipoMuestreo:{descripcion: respuesta[i].tipoMuestreo}, estadoLab: 'vacio'};
-          lista.push(nuevo);
+          var nuevo = {bodega: {nombreBodega: respuesta[i].bodega}, id_lote: (Number(respuesta[i].nro) + cont), materiaPrima: {nombreMateriaPrima: respuesta[i].materiaPrima}, trader: {nombreTrader: respuesta[i].proveedor}, paisTrader: {nombrePais: respuesta[i].origen},
+                      lote: respuesta[i].lote, bultos: respuesta[i].bultos, cantidad: respuesta[i].cantidad, contenedor: respuesta[i].contenedor, tipoMuestreo: {'id_tipoMuestreo': 1, 'descripcion': "Harina"}, estadoLab: 'vacio', procedencia: respuesta[i].procedencia, retiro: respuesta[i].retiroMuestreo};
+        lista.push(nuevo);
         }
         $rootScope.listaLotes = lista;
       }
@@ -342,6 +344,8 @@ app.controller('modalLoteCtrl', function($scope, $rootScope){
     $scope.traders = '';
     $rootScope.guardar = false;
     $rootScope.listaLotes = listaNueva;
+    $rootScope.retiro = "muestreo";
+
   };
 
 
