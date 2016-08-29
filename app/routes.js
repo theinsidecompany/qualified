@@ -304,7 +304,7 @@ module.exports = function(app) {
 	app.post('/api/loteLaboratorio', ControllerLote.laboratorioLoteSolicitud);
 	app.post('/api/loteDocumento', ControllerLote.laboratorioLoteDocumento);
 	app.post('/api/loteCertificado', ControllerLote.laboratorioLoteCertificado);
-	app.put('/api/lote/:id_solicitud', ControllerLote.actualizarLoteSolicitud);
+	// app.put('/api/lote/:id_solicitud', ControllerLote.actualizarLoteSolicitud);
 	app.post('/api/inspectorLote', ControllerLote.InspectorLote);
 	app.put('/api/modificarLotes/:id_solicitud', ControllerLote.modificarLotes);
 	//---------------------------------------------------------------------------------//
